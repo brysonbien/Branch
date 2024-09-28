@@ -1,4 +1,4 @@
-from backend1.connection.classes import *
+from backend.connection.classes import *
 
 #exec(open('filename.py').read())
 
