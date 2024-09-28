@@ -20,7 +20,7 @@ connection = pymysql.connect(
 def add_user(username, image, interest_list, instagram_token, password_hash):
     try:
         with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")  # Use the correct schema
+            cursor.execute("USE `UserManagement`;")
             sql = """
             INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `InstagramToken`, `PasswordHash`)
             VALUES (%s, %s, %s, %s, %s);
@@ -35,7 +35,7 @@ def add_user(username, image, interest_list, instagram_token, password_hash):
 def add_event(event_name, event_description, event_date, location, tags):
     try:
         with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")  # Use the correct schema
+            cursor.execute("USE `UserManagement`;")
             sql = """
             INSERT INTO `Events` (`EventName`, `EventDescription`, `EventDate`, `Location`, `Tags`)
             VALUES (%s, %s, %s, %s, %s);
@@ -50,7 +50,7 @@ def add_event(event_name, event_description, event_date, location, tags):
 def add_event_attendee(event_id, user_id):
     try:
         with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")  # Use the correct schema
+            cursor.execute("USE `UserManagement`;")
             sql = """
             INSERT INTO `EventAttendees` (`EventID`, `UserID`)
             VALUES (%s, %s);
@@ -65,7 +65,7 @@ def add_event_attendee(event_id, user_id):
 def add_user_friend(user_id, friend_id):
     try:
         with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")  # Use the correct schema
+            cursor.execute("USE `UserManagement`;")
             sql = """
             INSERT INTO `UserFriends` (`UserID`, `FriendID`)
             VALUES (%s, %s);
