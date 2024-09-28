@@ -1,14 +1,22 @@
 from huggingface_hub import InferenceClient
+import os
 
 # Ensure you have the necessary packages installed
 # pip install huggingface-hub transformers
+
+# Read database password from pass.txt file
+def get_token():
+    with open(os.path.join(os.path.dirname(__file__), 'hf_token.txt'), 'r') as f:
+        return f.read().strip()
+
+API_TOKEN = get_token()
 
 def get_interests_recommender(interests):
     interests = [interest.lower().strip().replace(" ", "_") for interest in interests]
     # Create the client with the correct model
     client = InferenceClient(
         model="mistralai/Mistral-7B-Instruct-v0.3",
-        token="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",
+        token=API_TOKEN,
     )
 
     # Prepare the prompt for the model
