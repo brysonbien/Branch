@@ -23,6 +23,7 @@ frontend/.orig.*
 frontend/web-build/
 
 backend/password.txt
+genAI/hf_token.txt
 # macOS
 .DS_Store
 
