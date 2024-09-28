@@ -7,6 +7,8 @@ import sys
 import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'database'))
 import db_writer
+import classes
+import db_reader
 
 # Initialize Flask app and Instagram client
 app = Flask(__name__)
@@ -71,6 +73,22 @@ def login():
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({'error': str(e)}), 400
+
+# Initialization
+@app.route('/init', methods=['POST'])
+def init():
+    data = request.json
+    username = data.get('username')
+    try:
+        userID = db_reader.find_userid(username)
+    except Exception as e:
+        print(f"Username Invalid!")
+    
+    currentInstance = classes.AppInstance(userID)
+    currentInstance.MyUser.fill_user()
+
+    
+    return jsonify({'message': 'User Found', 'Name': 'NEED TO DO', 'Image': currentInstance.MyUser.Image, 'InterestList': currentInstance.MyUser.InterestList}, 'Location': currentInstance.MyUser.Location), 200
 
 # Debugging route for testing server status
 @app.route('/')
