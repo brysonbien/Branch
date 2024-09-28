@@ -88,7 +88,12 @@ def init():
     currentInstance.MyUser.fill_user()
 
     
-    return jsonify({'message': 'User Found', 'Name': 'NEED TO DO', 'Image': currentInstance.MyUser.Image, 'InterestList': currentInstance.MyUser.InterestList}, 'Location': currentInstance.MyUser.Location), 200
+    return jsonify({
+    'message': 'User Found',
+    'Image': currentInstance.MyUser.Image,
+    'InterestList': currentInstance.MyUser.InterestList,
+    'Location': currentInstance.MyUser.Location
+}), 200
 
 # Debugging route for testing server status
 @app.route('/')
