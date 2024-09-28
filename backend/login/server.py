@@ -2,10 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from instagrapi import Client
 from instagrapi.exceptions import ChallengeRequired, LoginRequired
-from classes import Profile, Event, CustomHashSet
-from mySQLconn import connection
-from backend.connection import *
-from backend.login import *
+# from ..connection import *
+# from ..login import *
 
 
 # Initialize Flask app and Instagram client
@@ -73,11 +71,11 @@ def new_profile():
     
     try:
         db_writer.new_profile(jsonify(userID, username, password, location, interests, friendList))
-        return jsonify({'message': 'Login successful', 'user_info': user_info_serialized}), ???
+        return jsonify({'message': 'Login successful', 'user_info': "New user created."}), 200
     except ____:
-        return jsonify({'error': 'Duplicate profile already exists, try updateprofile medthod.'}), ???
+        return jsonify({'error': 'Duplicate profile already exists, try updateprofile medthod.'}), 403
     except ____:
-        return jsonify({'error': 'One or more parameters are incorrect.'}), ???
+        return jsonify({'error': 'One or more parameters are incorrect.'}), 401
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
