@@ -13,7 +13,9 @@ export default function HomeScreen() {
   const isUser = true
   const eventname = "Taloy Swift Concert"
   const eventdate = "2024-07-24"
-  const profilePic = ['https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2', 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2']
+  const profileInfo = [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
+    {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+  ]
 
   return (
     <ThemedView style={styles.container}>
@@ -45,7 +47,7 @@ export default function HomeScreen() {
         ))}
       </ThemedView>
       <ThemedView style={styles.location}>
-        <EventView EventName={eventname} EventDate={eventdate} ProfilePic={profilePic}></EventView>
+        <EventView EventName={eventname} EventDate={eventdate} ProfileInfo={profileInfo}></EventView>
       </ThemedView>
     </ThemedView>
   );
@@ -54,6 +56,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    overflow: 'scroll',
   },
   name: {
     marginTop: 50,

@@ -1,49 +1,97 @@
-import { Image, View, Text, StyleSheet } from 'react-native';
+import { Image, View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import React, { useState } from 'react';
+
+
+interface Profile {
+  name: string;
+  pic: string;
+}
 
 export type EventViewProp = {
   EventName: string;
   EventDate: string;
-  ProfilePic: Array<string>;
+  ProfileInfo: Array<Profile>;
   type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'title2';
 };
 
 export default function EventView({
   EventName,
   EventDate,
-  ProfilePic
+  ProfileInfo,
 }: EventViewProp) {
+  const [expand, setExpand] = useState(true)
+
+  const toggleExpand = () => {
+    setExpand(!expand)
+  }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.roundContainer}>
+    <Pressable onPress={toggleExpand} style={styles.container}>
+      <View style={[styles.roundContainer, , expand ? styles.expand : styles.collapse]}>
         <View style={styles.textContainer}>
           <Text style={styles.eventName}>{EventName}</Text>
           <Text style={styles.eventDate}>{EventDate}</Text>
         </View>
-        <View style={styles.pictureContainer}>
-          {ProfilePic.map((address, index) => (
-            <Image
-              source={{uri: address}}
-              style={styles.picture}
-            ></Image>
-          ))}
-        </View>
+        {!expand && (
+          <View style={styles.pictureContainer}>
+            {ProfileInfo.map((content, index) => (
+              <Image
+                source={{uri: content.pic}}
+                style={styles.picture}
+              ></Image>
+            ))}
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>+</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+        {expand && (
+          <View style={styles.pictureContainerExpand}>
+            {ProfileInfo.map((content, index) => (
+              <View style={styles.picText}>
+                <Image
+                  source={{uri: content.pic}}
+                  style={styles.picture}
+                ></Image>
+                <Text style={styles.username}>{content.name} {index == 0 && "(Creator)"}</Text>
+              </View>
+            ))}
+          </View>
+        )}
       </View>
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
+    username: {
+      marginLeft: 10,
+      marginTop: 20,
+      color: 'white',            // Text color
+      fontSize: 14,
+    },
+    picText: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start'
+    },
     pictureContainer: {
       marginTop: 20,
+      marginLeft: 10,
       alignItems: 'flex-start',
       flexDirection: 'row',
     },
+    pictureContainerExpand: {
+      marginTop: 20,
+      marginLeft: 10,
+      alignItems: 'flex-start',
+    }, 
     picture: {
       width: 40,
       height: 40,
-      borderRadius: 100,  
+      borderRadius: 100, 
+      marginLeft: 10,
+      marginTop: 10
     },
     container: {
       flex: 1,
@@ -52,7 +100,6 @@ const styles = StyleSheet.create({
     },
     roundContainer: {
       width: 350,               // Set the width of the round container
-      height: 150,              // Set the height of the round container
       borderRadius: 25,         // Make it circular
       backgroundColor: '#007BFF', // Background color
       justifyContent: 'flex-start',  // Center text vertically
@@ -61,6 +108,12 @@ const styles = StyleSheet.create({
       shadowOffset: { width: 0, height: 2 }, // Shadow offset
       shadowOpacity: 0.2,        // Shadow opacity
       shadowRadius: 4,           // Shadow radius
+    },
+    collapse: {
+      height: 150
+    }, 
+    expand: {
+      paddingBottom: 20
     },
     eventName: {
       marginTop: 10,
@@ -77,5 +130,19 @@ const styles = StyleSheet.create({
     },
     textContainer: {
       alignItems: 'center',      // Center text horizontally
-    }
+    },
+    button: {
+      marginLeft: 10,
+      marginTop: 10,
+      width: 40,  // Width of the button
+      height: 40, // Height of the button
+      borderRadius: 100, // Half of the width/height to make it rounded
+      backgroundColor: '#008000', // Button color
+      justifyContent: 'center', // Center the content vertically
+      alignItems: 'center', // Center the content horizontally
+    },
+    buttonText: {
+      fontSize: 30, // Size of the plus sign
+      color: '#FFFFFF', // Text color
+    },
 });
