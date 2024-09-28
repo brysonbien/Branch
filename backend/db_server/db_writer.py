@@ -1,5 +1,7 @@
 import os
 import pymysql
+#update_user()
+#implement user-pass, mutuals
 
 # Read database password from pass.txt file
 def get_db_password():
@@ -26,16 +28,16 @@ def get_connection():
     )
 
 # Function to add a user to the Users table
-def add_user(username, image, interest_list, instagram_token, password_hash):
+def add_user(username, image, interest_list, password_hash):
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `InstagramToken`, `PasswordHash`)
+            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`)
             VALUES (%s, %s, %s, %s, %s);
             """
-            cursor.execute(sql, (username, image, interest_list, instagram_token, password_hash))
+            cursor.execute(sql, (username, image, interest_list, password_hash))
         connection.commit()
         print(f"User '{username}' added to Users table.")
     except pymysql.MySQLError as e:
@@ -108,7 +110,6 @@ if __name__ == "__main__":
         username="john_doe",
         image=None,  # Use None if there's no image, or provide bytes data for a BLOB
         interest_list='["sports", "coding"]',  # JSON string representation
-        instagram_token="some_token_here",
         password_hash="hashed_password_here"
     )
 
