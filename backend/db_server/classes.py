@@ -22,8 +22,6 @@ class User:
     
     def fill_user(self): # Fills all feilds except UserFriendsList
         db_reader.fill_user(self, self.UserID)
-
-    def fill_
         
 class Event:
     def __init__(self, EventID, KAttendeeArr):

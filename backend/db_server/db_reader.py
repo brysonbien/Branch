@@ -84,23 +84,28 @@ def fill_user(UserOBJ):
             WHERE `UserID` = %s
             """
             cursor.execute(sql, (userid,))
-            result = cursor.fetchone()
+            results = cursor.fetchall()
             
-            if result:
-                UserOBJ.myEventIDArr = parse_json_list(result)
-                print(f"User data retrieved successfully for UserID: {userid}")
+            if results:
+                print(f"Found {len(results)} events for UserID: {userid}")
+                for result in results:
+                    UserOBJ.myEventIDArr.append(result)
+                    print(f"EventID: {result['EventID']}")
+                return results
             else:
-                print(f"No user found with UserID: {userid}")
+                print(f"No events found for UserID: {userid}")
+                return []
 
     except pymysql.MySQLError as e:
         print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+        return []
     finally:
         if connection:
             connection.close()
 
 if __name__ == "__main__":
     # Add a user (example)
-    tempuser = User(1)
+    tempuser = User(2)
     fill_user(tempuser)
     print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
     print(tempuser.myEventIDArr)
