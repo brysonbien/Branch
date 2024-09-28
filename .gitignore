@@ -19,3 +19,7 @@ backend/password.txt
 
 expo-env.d.ts
 # @end expo-cli
+
+__pycache__/
+backend/login/__pycache__/
+backend/connection/__pycache__/
