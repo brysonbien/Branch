@@ -17,8 +17,8 @@ class User:
         self.UserFriendsList = []
         self.myEventIDArr = []
     
-    def fill_user(self):
-        db_reader.fill_user(self, self.UserID)
+    """def fill_user(self):
+        db_reader.fill_user(self, self.UserID)"""
         
 class Event:
     def __init__(self, EventID, AttendeeArr):
@@ -30,8 +30,8 @@ class Event:
         self.EventDate = None
         self.Location = None
 
-    def fill_event(self):
-        db_reader.fill_user(self, self.EventID)
+    """def fill_event(self):
+        db_reader.fill_user(self, self.EventID)"""
 
 
 
