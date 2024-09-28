@@ -28,6 +28,31 @@ def get_connection():
         write_timeout=timeout,
     )
 
+def find_userid(username):
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            SELECT `UserID`
+            FROM `Users` 
+            WHERE `Username` = %s
+            """
+            cursor.execute(sql, (username,))
+            result = cursor.fetchone()
+            
+            if result:
+                print(f"Userid is: {result}")
+                return result
+            else:
+                print(f"No user found with Username: {username}")
+
+    except pymysql.MySQLError as e:
+        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+    finally:
+        if connection:
+            connection.close()
+
 def parse_json_list(list_str):
     if not list_str:
         return []
@@ -142,3 +167,4 @@ if __name__ == "__main__":
     fill_user(tempuser)
     print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
     print(tempuser.myEventIDArr)
+    find_userid('rebelxhawk')

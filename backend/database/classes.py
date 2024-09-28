@@ -24,14 +24,15 @@ class User:
         db_reader.fill_user(self, self.UserID)
         
 class Event:
-    def __init__(self, EventID, AttendeeArr):
+    def __init__(self, EventID, KAttendeeArr):
         self.EventID = EventID
-        self.AttendeeArr = AttendeeArr
+        self.KAttendeeArr = KAttendeeArr
         #API Call for the rest of the relavent information
         self.EventName = None
         self.EventDescription = None
         self.EventDate = None
         self.Location = None
+        self.AllAttendeeArr = []
 
     """def fill_event(self):
         db_reader.fill_user(self, self.EventID)"""

@@ -5,6 +5,7 @@ from classes import *
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'genAI'))
 import interests_recommender
 import json
+from db_reader import *
 
 # Read database password from pass.txt file
 def get_db_password():
@@ -54,20 +55,63 @@ def add_user(username, password_hash, mutuals):
             connection.close()
 
 def update_user(UserOBJ):
-    extended_interest_list = get_interests_recommender(interest_list)
+    interest_list = UserOBJ.InterestList
+    extended_interest_list = interests_recommender.get_interests_recommender(interest_list)
+    password_hash = UserOBJ.Password
+    username = UserOBJ.Username
+    image = UserOBJ.Image
+    location = UserOBJ.Location
+    userid = UserOBJ.UserID
+    
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `mutuals`, `Extended Interests`)
+            WITH ( SELECT `mutuals` FROM `Users` WHERE `UserID` = %s) AS m
+            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `Extended Interests`)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+            `PasswordHash` = VALUES(`PasswordHash`),
+            `Username` = VALUES(`Username`),
+            `Location` = VALUES(`Location`),
+            `Image` = Values(`Image`),
+            `InterestList` = Values(`InterestList`),
+            `Extended Interests` = Values(`Extended Interests`)
+            `mutuals` = m
+            """
+            cursor.execute(sql, (userid, username, image, json.dump(interest_list), password_hash, location, json.dump(extended_interest_list[0:25])))
+        connection.commit()
+        print(f"User '{username}' added/updated in Users table.")
+    except pymysql.MySQLError as e:
+        print(f"Failed to update user: {e.args[1]} (Error Code: {e.args[0]})")
+    finally:
+        if connection:
+            connection.close()
+
+def add_event(EventOBJ):
+    EventID = EventOBJ.EventID
+    AttendeeArr = EventOBJ.AttendeeArr
+    EventName = EventOBJ.EventName
+    Description = EventOBJ.EventDescription
+    Date = EventOBJ.EventDate
+    Location = EventOBJ.Location
+    Attendees = EventOBJ.AllAttendeeArr
+    EventTags = interests_recommender.get_event_tags(EventName, Description)
+    return
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `Extended Interests`)
             VALUES (%s, %s, %s, %s, %s, %s, %s)
             ON DUPLICATE KEY UPDATE
             `PasswordHash` = VALUES(`PasswordHash`),
             `Location` = VALUES(`Location`),
             `mutuals` = VALUES(`mutuals`);
             """
-            cursor.execute(sql, (username, image, interest_list, password_hash, location, mutuals))
+            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list))
         connection.commit()
         print(f"User '{username}' added/updated in Users table.")
     except pymysql.MySQLError as e:
@@ -79,12 +123,13 @@ def update_user(UserOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
-    tempuser = User(4)
-    tempuser.Username = 'mike wazaoski'
+    #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
+    tempuser = User(find_userid('johnny test'))
+    tempuser.Username = 'johnny test'
     tempuser.InterestList = ['reading', 'traveling', 'coding', 'fucking']
     tempuser.Location = 'Monsters Inc'
     tempuser.Password = 'fakepass123'
     tempuser.mutuals = ['john doe', 'jane doe']
-    add_user(tempuser)
-    print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
-    print(tempuser.myEventIDArr)
+    update_user(tempuser)
+    #print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
+    #print(tempuser.myEventIDArr)
