@@ -4,6 +4,7 @@ from huggingface_hub import InferenceClient
 # pip install huggingface-hub transformers
 
 def get_interests_recommender(interests):
+    interests = [interest.lower().strip().replace(" ", "_") for interest in interests]
     # Create the client with the correct model
     client = InferenceClient(
         model="mistralai/Mistral-7B-Instruct-v0.3",
@@ -19,7 +20,7 @@ def get_interests_recommender(interests):
     # Generate text using the InferenceClient
     response = client.text_generation(
         prompt,
-        max_new_tokens=64,  # Adjust the number of tokens as needed
+        max_new_tokens=100,  # Adjust the number of tokens as needed
         temperature=0.1,    # Adjust the randomness of the output
     )
 
@@ -27,4 +28,5 @@ def get_interests_recommender(interests):
     print(response)
 
 if __name__ == "__main__":
-    get_interests_recommender(["coding", "hiking", "tennis"])
+    result = get_interests_recommender(["coding", "hiking", "tennis", "basketball", "concerts"])
+    
