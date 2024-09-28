@@ -26,7 +26,8 @@ try:
         `Image`, 
         `InterestList`, 
         `InstagramToken`, 
-        `PasswordHash`
+        `PasswordHash`,
+        `Location`
     ) VALUES (
         %s, %s, %s, %s, %s
     );
@@ -38,7 +39,8 @@ try:
         None,  # Use None for NULL
         '["reading", "traveling", "coding"]', 
         'sample_instagram_token', 
-        'hashed_password_123'
+        'hashed_password_123',
+        None
     )
     
     cursor.execute(insert_user_sql, test_user_data)
