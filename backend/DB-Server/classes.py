@@ -35,6 +35,8 @@ class Event:
     def fill_event(self):
         db_reader.fill_user(self, self.EventID)
 
+
+
 class Node:
     def __init__(self, key, data):
         self.key = key
