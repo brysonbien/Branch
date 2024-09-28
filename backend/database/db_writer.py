@@ -61,7 +61,44 @@ def update_user(UserOBJ):
     username = UserOBJ.Username
     image = UserOBJ.Image
     location = UserOBJ.Location
+    userid = UserOBJ.UserID
     
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            WITH ( SELECT `mutuals` FROM `Users` WHERE `UserID` = %s) AS m
+            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `Extended Interests`)
+            VALUES (%s, %s, %s, %s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+            `PasswordHash` = VALUES(`PasswordHash`),
+            `Username` = VALUES(`Username`),
+            `Location` = VALUES(`Location`),
+            `Image` = Values(`Image`),
+            `InterestList` = Values(`InterestList`),
+            `Extended Interests` = Values(`Extended Interests`)
+            `mutuals` = m
+            """
+            cursor.execute(sql, (userid, username, image, json.dump(interest_list), password_hash, location, json.dump(extended_interest_list[0:25])))
+        connection.commit()
+        print(f"User '{username}' added/updated in Users table.")
+    except pymysql.MySQLError as e:
+        print(f"Failed to update user: {e.args[1]} (Error Code: {e.args[0]})")
+    finally:
+        if connection:
+            connection.close()
+
+def add_event(EventOBJ):
+    EventID = EventOBJ.EventID
+    AttendeeArr = EventOBJ.AttendeeArr
+    EventName = EventOBJ.EventName
+    Description = EventOBJ.EventDescription
+    Date = EventOBJ.EventDate
+    Location = EventOBJ.Location
+    Attendees = EventOBJ.AllAttendeeArr
+    EventTags = interests_recommender.get_event_tags(EventName, Description)
+    return
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
@@ -86,10 +123,9 @@ def update_user(UserOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
-    add_user('mikewazaoski', 'fakepass123', None)
-    tempuser = User(find_userid('rebelxhawk'))
-    tempuser = User(find_userid('mikewazaoski'))
-    tempuser.Username = 'mikewazaoski'
+    #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
+    tempuser = User(find_userid('johnny test'))
+    tempuser.Username = 'johnny test'
     tempuser.InterestList = ['reading', 'traveling', 'coding', 'fucking']
     tempuser.Location = 'Monsters Inc'
     tempuser.Password = 'fakepass123'
