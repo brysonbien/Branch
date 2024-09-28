@@ -3,7 +3,7 @@ import db_reader
 
 class AppInstance:
     def __init__(self, UserID):
-        self.MyUser = None
+        self.MyUser = User(UserID)
         self.FriendUserList = []
         self.EventList = []
 
@@ -21,7 +21,10 @@ class User:
         self.Location = None
     
     def fill_user(self): # Fills all feilds except UserFriendsList
-        db_reader.fill_user(self, self.UserID)
+        db_reader.fill_user(self)
+
+    def fill_user_friends(self): # Fills all feilds except UserFriendsList
+        db_reader.fill_user_friends(self)
         
 class Event:
     def __init__(self, EventID, KAttendeeArr):
