@@ -1,4 +1,5 @@
 from typing import Any, List, Tuple
+import db_reader
 
 class AppInstance:
     def __init__(self, UserID):
@@ -14,11 +15,15 @@ class User:
         self.Password = None
         self.Image = None
         self.InterestList = []
+        self.ExtendedInterestList = []
         self.UserFriendsList = []
         self.myEventIDArr = []
+        self.Location = None
     
-    def fill_user(self):
+    def fill_user(self): # Fills all feilds except UserFriendsList
         db_reader.fill_user(self, self.UserID)
+
+    def fill_
         
 class Event:
     def __init__(self, EventID, KAttendeeArr):
