@@ -22,4 +22,4 @@ expo-env.d.ts
 
 __pycache__/
 backend/login/__pycache__/
-backend/connection/__pycache__/
+backend/database/__pycache__/
