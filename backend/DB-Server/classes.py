@@ -1,21 +1,39 @@
-
-
 from typing import Any, List, Tuple
 
-class Profile:
-    def __init__(self, ProfileID):
-        self.ProfileID = ProfileID #User id
-        #API Call for the rest of the relavent information
-        self.FriendIDArr = []
-        self.myEventIDArr = []
-        
+class AppInstance:
+    def __init__(self, UserID):
+        self.MyUser = None
+        self.FriendUserList = []
+        self.EventList = []
 
+class User:
+    def __init__(self, UserID):
+        self.UserID = UserID #User id
+        #API Call for the rest of the relavent information
+        self.Username = None
+        self.Password = None
+        self.Image = None
+        self.InterestList = []
+        self.UserFriendsList = []
+        self.myEventIDArr = []
+    
+    def fill_user(self):
+        db_reader.fill_user(self, self.UserID)
+        
 class Event:
     def __init__(self, EventID, KAttendeeArr):
         self.EventID = EventID
         self.KAttendeeArr = KAttendeeArr
         #API Call for the rest of the relavent information
         self.UKAttendeeArr = []
+        self.EventName = None
+        self.EventDescription = None
+        self.EventDate = None
+        self.Location = None
+        self.SpecificLocation = None
+
+    def fill_event(self):
+        db_reader.fill_user(self, self.EventID)
 
 class Node:
     def __init__(self, key, data):
