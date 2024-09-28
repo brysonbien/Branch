@@ -55,8 +55,9 @@ def add_user(username, password_hash, mutuals):
             connection.close()
 
 def update_user(UserOBJ):
-    interest_list = UserOBJ.InterestList
-    extended_interest_list = interests_recommender.get_interests_recommender(interest_list)
+    interest_list = json.dumps(UserOBJ.InterestList)
+    extended_interest_list = json.dumps(interests_recommender.get_interests_recommender(UserOBJ.InterestList))
+    print(extended_interest_list)
     password_hash = UserOBJ.Password
     username = UserOBJ.Username
     image = UserOBJ.Image
@@ -68,19 +69,18 @@ def update_user(UserOBJ):
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            WITH ( SELECT `mutuals` FROM `Users` WHERE `UserID` = %s) AS m
-            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `Extended Interests`)
-            VALUES (%s, %s, %s, %s, %s, %s)
-            ON DUPLICATE KEY UPDATE
-            `PasswordHash` = VALUES(`PasswordHash`),
-            `Username` = VALUES(`Username`),
-            `Location` = VALUES(`Location`),
-            `Image` = Values(`Image`),
-            `InterestList` = Values(`InterestList`),
-            `Extended Interests` = Values(`Extended Interests`)
-            `mutuals` = m
+            UPDATE `Users` 
+            SET
+                `Username` = %s,
+                `Image` = %s,
+                `InterestList` = %s,
+                `PasswordHash` = %s,
+                `Location` = %s,
+                `Extended Interests` = %s
+            WHERE `UserID` = %s;
             """
-            cursor.execute(sql, (userid, username, image, json.dump(interest_list), password_hash, location, json.dump(extended_interest_list[0:25])))
+            print(userid, userid, username, image, interest_list, password_hash, location, extended_interest_list)
+            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list, userid))
         connection.commit()
         print(f"User '{username}' added/updated in Users table.")
     except pymysql.MySQLError as e:
@@ -126,7 +126,7 @@ if __name__ == "__main__":
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
     tempuser = User(find_userid('johnny test'))
     tempuser.Username = 'johnny test'
-    tempuser.InterestList = ['reading', 'traveling', 'coding', 'fucking']
+    tempuser.InterestList = ['reading', 'traveling', 'coding', 'skateboarding']
     tempuser.Location = 'Monsters Inc'
     tempuser.Password = 'fakepass123'
     tempuser.mutuals = ['john doe', 'jane doe']

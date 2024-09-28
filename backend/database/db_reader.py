@@ -43,7 +43,7 @@ def find_userid(username):
             
             if result:
                 print(f"Userid is: {result}")
-                return result
+                return result['UserID']
             else:
                 print(f"No user found with Username: {username}")
 
@@ -130,41 +130,51 @@ def fill_user(UserOBJ):
 
 # Function to add a user to the Users table
 def fill_user_friends(UserOBJ):
+    FriendIDs = []
     userid = UserOBJ.UserID
     try:
         connection = get_connection()
-        with connection.cursor() as cursor:
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            SELECT `Username`, `Image`, `InterestList`,`PasswordHash`, `Location`, `mutuals`, `Extended Interests`
+            SELECT `mutuals`
             FROM `Users` 
             WHERE `UserID` = %s
             """
             cursor.execute(sql, (userid,))
             result = cursor.fetchone()
             
-            if result:
-                UserOBJ.Username = result['Username']
-                UserOBJ.Image = result['Image']
-                UserOBJ.InterestList = parse_json_list(result['InterestList'])
-                UserOBJ.ExtendedInterestList = parse_json_list(result['Extended Interests'])
-                UserOBJ.Password = result['PasswordHash']
-                UserOBJ.Location = result['Location']
-                print(f"User data retrieved successfully for UserID: {userid}")
+            if result and 'mutuals' in result:
+                mutuals = parse_json_list(result['mutuals'])
+                print(f"User mutuals retrieved successfully for UserID: {userid}")
+                return mutuals
             else:
                 print(f"No user found with UserID: {userid}")
+                return None
 
     except pymysql.MySQLError as e:
         print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+        return None
     finally:
         if connection:
             connection.close()
+    
+    for n in result:
+        try:
+            FriendIDs.append(find_userid(n))
+            print(n)
+        except pymysql.MySQLError as e:
+            continue
+    UserOBJ.UserFriendsList = FriendIDs
+    return
+
 
 
 if __name__ == "__main__":
     # Add a user (example)
-    tempuser = User(1)
-    fill_user(tempuser)
-    print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
-    print(tempuser.myEventIDArr)
-    find_userid('rebelxhawk')
+    
+    newUser = User(find_userid('johnny test'))
+    newUser.fill_user()
+    print(newUser.InterestList, newUser.ExtendedInterestList)
+    newUser.fill_user_friends
+    print(newUser.UserFriendsList)
