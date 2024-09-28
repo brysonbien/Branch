@@ -4,10 +4,11 @@ from typing import Any, List, Tuple
 
 class Profile:
     def __init__(self, ProfileID):
-        self.ProfileID = ProfileID
+        self.ProfileID = ProfileID #User id
         #API Call for the rest of the relavent information
         self.FriendIDArr = []
         self.myEventIDArr = []
+        
 
 class Event:
     def __init__(self, EventID, KAttendeeArr):

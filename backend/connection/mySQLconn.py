@@ -1,5 +1,5 @@
-
 import pymysql
+from ..config import DB_PASSWORD
 
 timeout = 10
 connection = pymysql.connect(
@@ -8,7 +8,7 @@ connection = pymysql.connect(
   cursorclass=pymysql.cursors.DictCursor,
   db="defaultdb",
   host="mysql-223d04d7-branch-hackathon.h.aivencloud.com",
-  password=,
+  password=DB_PASSWORD,
   read_timeout=timeout,
   port=14022,
   user="avnadmin",
