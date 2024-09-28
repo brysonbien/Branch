@@ -1,9 +1,10 @@
-import { Image, StyleSheet, Platform, View,Pressable,TextInput,TouchableOpacity, Text } from 'react-native';
+import { Image, StyleSheet, Platform, View,Pressable,TextInput, Text } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
+import {base_url} from '@/constants/apiRoute'
 
 export default function HomeScreen() {
   const [login, setLogin] = useState(false)
@@ -14,10 +15,37 @@ export default function HomeScreen() {
     setLogin(true)
   }
 
-  const handleLogin = () => {
-    console.log("username: " + username)
-    console.log("password: " + password)
-    window.location.href = '/'
+  const handleLogin = async () => {
+    if (await instaLogin()) {
+      window.location.href = '/home'
+    }
+  }
+
+  const instaLogin = async () => {
+    try {
+      const loginData = {
+        username: username,
+        password: password,
+      }
+      const response = await fetch(base_url + '/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+        body: JSON.stringify(loginData),
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+  
+      const data = await response.json();
+      console.log('Data from Flask:', data);
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }  
   }
 
   return (
@@ -64,9 +92,9 @@ export default function HomeScreen() {
             onChangeText={setPassword}
             secureTextEntry={true}
           />
-          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Pressable style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Login</Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       }
       

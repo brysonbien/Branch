@@ -1,7 +1,6 @@
 import { Image,TouchableOpacity, StyleSheet, Platform , ScrollView, View, Text} from 'react-native';
 
 import EvenView from '@/components/EventView';
-import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import CreateEvent from '../createEvent';
 
