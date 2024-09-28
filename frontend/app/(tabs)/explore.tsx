@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform, ScrollView, Text,View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Image, Platform, ScrollView, Text,View, TouchableOpacity, Pressable} from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
@@ -43,7 +43,7 @@ export default function TabTwoScreen() {
       <LineWithText text="recommended"></LineWithText>
       <View style={styles.userAllContainer}>
         {users.map((user, index) => (
-          <View style={styles.userContainer}>
+          <Pressable style={styles.userContainer}>
             <View style={styles.photoContaienr}>
               <Image
                 source={{uri: user.pic}}
@@ -58,7 +58,7 @@ export default function TabTwoScreen() {
                 </TouchableOpacity>
               ))}
             </View>
-          </View>
+          </Pressable>
         ))}
       </View>
       <LineWithText text="all"></LineWithText>

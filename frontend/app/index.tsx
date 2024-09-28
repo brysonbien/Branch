@@ -5,6 +5,9 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import {base_url} from '@/constants/apiRoute'
+import { MMKV } from 'react-native-mmkv'
+import {storage} from '@/constants/mmkv'
+
 
 export default function HomeScreen() {
   const [login, setLogin] = useState(false)
@@ -17,6 +20,7 @@ export default function HomeScreen() {
 
   const handleLogin = async () => {
     if (await instaLogin()) {
+      storage.set('user.name', username)
       window.location.href = '/home'
     }
   }
@@ -122,8 +126,8 @@ const styles = StyleSheet.create({
   },
   reactLogo: {
     top: 0,
-    height: 400,
-    width: 400,
+    height: "100%",
+    width: "100%",
     bottom: 0,
     left: 0,
     position: 'absolute',

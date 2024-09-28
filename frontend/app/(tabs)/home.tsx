@@ -1,8 +1,9 @@
 import { Image,TouchableOpacity, StyleSheet, Platform , ScrollView, View, Text} from 'react-native';
 
 import EvenView from '@/components/EventView';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import CreateEvent from '../createEvent';
+import { MMKV, useMMKVString} from 'react-native-mmkv'
 
 export default function HomeScreen() {
   const events = [{eventname: "Taloy Swift Concert", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
@@ -17,7 +18,11 @@ export default function HomeScreen() {
 ]
 
 const [create, setCreate] = useState(false)
+const [username, setUsername] = useMMKVString('user.name')
 
+  useEffect(() => {
+    console.log(username)
+  },[]);
 
   return (
     <>
