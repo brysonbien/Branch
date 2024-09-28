@@ -1,5 +1,10 @@
 import os
+import sys
 import pymysql
+from classes import *
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'genAI'))
+import interests_recommender
+import json
 
 # Read database password from pass.txt file
 def get_db_password():
@@ -26,14 +31,37 @@ def get_connection():
     )
 
 # Function to add a user to the Users table
-def add_user(username, image, interest_list, password_hash, location, mutuals):
+def add_user(username, password_hash, mutuals):
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `mutuals`)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO `Users` (`Username`, `PasswordHash`, `mutuals`)
+            VALUES (%s, %s, %s)
+            ON DUPLICATE KEY UPDATE
+            `PasswordHash` = VALUES(`PasswordHash`),
+            `Location` = VALUES(`Location`),
+            `mutuals` = VALUES(`mutuals`);
+            """
+            cursor.execute(sql, (username, password_hash, mutuals))
+        connection.commit()
+        print(f"User '{username}' added/updated in Users table.")
+    except pymysql.MySQLError as e:
+        print(f"Failed to add user: {e.args[1]} (Error Code: {e.args[0]})")
+    finally:
+        if connection:
+            connection.close()
+
+def update_user(UserOBJ):
+    extended_interest_list = get_interests_recommender(interest_list)
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `mutuals`, `Extended Interests`)
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
             ON DUPLICATE KEY UPDATE
             `PasswordHash` = VALUES(`PasswordHash`),
             `Location` = VALUES(`Location`),
@@ -48,21 +76,15 @@ def add_user(username, image, interest_list, password_hash, location, mutuals):
         if connection:
             connection.close()
 
-# Function to add a friend connection between users
-def add_user_friend(user_id, friend_id):
-    try:
-        connection = get_connection()
-        with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")
-            sql = """
-            INSERT INTO `UserFriends` (`UserID`, `FriendID`)
-            VALUES (%s, %s);
-            """
-            cursor.execute(sql, (user_id, friend_id))
-        connection.commit()
-        print(f"Friend connection added between user '{user_id}' and friend '{friend_id}'.")
-    except pymysql.MySQLError as e:
-        print(f"Failed to add friend connection: {e.args[1]} (Error Code: {e.args[0]})")
-    finally:
-        if connection:
-            connection.close()
+
+if __name__ == "__main__":
+    # Add a user (example)
+    tempuser = User(4)
+    tempuser.Username = 'mike wazaoski'
+    tempuser.InterestList = ['reading', 'traveling', 'coding', 'fucking']
+    tempuser.Location = 'Monsters Inc'
+    tempuser.Password = 'fakepass123'
+    tempuser.mutuals = ['john doe', 'jane doe']
+    add_user(tempuser)
+    print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
+    print(tempuser.myEventIDArr)
