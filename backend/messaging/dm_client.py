@@ -5,40 +5,40 @@ base_url = "http://127.0.0.1:5000"
 
 # Function to send a message
 def send_message(sender_id, receiver_id, message):
-    url = f"{base_url}/send_message"
+    send_url = f"{base_url}/send_message"
     data = {
         "sender_id": sender_id,
         "receiver_id": receiver_id,
         "message": message
     }
-    response = requests.post(url, json=data)
+    response = requests.post(send_url, json=data)
     if response.status_code == 200:
         print("Message sent successfully.")
     else:
         print(f"Failed to send message: {response.json().get('error')}")
 
-# Function to get messages between two users
-def get_messages(user1_id, user2_id):
-    url = f"{base_url}/get_messages"
-    params = {
-        "user1_id": user1_id,
-        "user2_id": user2_id
-    }
-    response = requests.get(url, params=params)
+# Function to get a conversation
+def get_conversation(sender_id, receiver_id):
+    get_url = f"{base_url}/get_conversation?sender_id={sender_id}&receiver_id={receiver_id}"
+    response = requests.get(get_url)
     if response.status_code == 200:
-        messages = response.json().get('messages')
-        for msg in messages:
-            print(f"[{msg['Timestamp']}] {msg['SenderID']} to {msg['ReceiverID']}: {msg['Message']}")
+        conversation = response.json().get('conversation', [])
+        for message in conversation:
+            print(f"{message['Timestamp']} - {message['SenderID']} to {message['ReceiverID']}: {message['Message']}")
     else:
-        print(f"Failed to retrieve messages: {response.json().get('error')}")
+        print(f"Failed to retrieve conversation: {response.json().get('error')}")
 
 if __name__ == "__main__":
-    # Test sending and receiving messages
-    sender_id = input("Enter sender ID: ")
-    receiver_id = input("Enter receiver ID: ")
-    message = input("Enter message: ")
-
-    send_message(sender_id, receiver_id, message)
-
-    # Fetch and display messages
-    get_messages(sender_id, receiver_id)
+    # Sample flow for sending and receiving messages
+    sender_id = input("Enter your user ID: ")
+    receiver_id = input("Enter receiver's user ID: ")
+    
+    while True:
+        action = input("Enter 'send' to send a message or 'view' to view the conversation: ").strip().lower()
+        if action == 'send':
+            message = input("Enter your message: ")
+            send_message(sender_id, receiver_id, message)
+        elif action == 'view':
+            get_conversation(sender_id, receiver_id)
+        else:
+            print("Invalid action. Please enter 'send' or 'view'.")
