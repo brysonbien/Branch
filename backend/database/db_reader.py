@@ -103,9 +103,42 @@ def fill_user(UserOBJ):
         if connection:
             connection.close()
 
+# Function to add a user to the Users table
+def fill_user_friends(UserOBJ):
+    userid = UserOBJ.UserID
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            SELECT `Username`, `Image`, `InterestList`,`PasswordHash`, `Location`, `mutuals`, `Extended Interests`
+            FROM `Users` 
+            WHERE `UserID` = %s
+            """
+            cursor.execute(sql, (userid,))
+            result = cursor.fetchone()
+            
+            if result:
+                UserOBJ.Username = result['Username']
+                UserOBJ.Image = result['Image']
+                UserOBJ.InterestList = parse_json_list(result['InterestList'])
+                UserOBJ.ExtendedInterestList = parse_json_list(result['Extended Interests'])
+                UserOBJ.Password = result['PasswordHash']
+                UserOBJ.Location = result['Location']
+                print(f"User data retrieved successfully for UserID: {userid}")
+            else:
+                print(f"No user found with UserID: {userid}")
+
+    except pymysql.MySQLError as e:
+        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+    finally:
+        if connection:
+            connection.close()
+
+
 if __name__ == "__main__":
     # Add a user (example)
-    tempuser = User(2)
+    tempuser = User(1)
     fill_user(tempuser)
     print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
     print(tempuser.myEventIDArr)
