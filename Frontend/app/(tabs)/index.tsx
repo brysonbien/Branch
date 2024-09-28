@@ -1,66 +1,78 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Image,TouchableOpacity, StyleSheet, Platform , ScrollView, View, Text} from 'react-native';
 
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
+import EvenView from '@/components/EventView';
 import { ThemedView } from '@/components/ThemedView';
+import React, { useState } from 'react';
+import CreateEvent from '../createEvent';
 
 export default function HomeScreen() {
+  const events = [{eventname: "Taloy Swift Concert", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
+    {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+  ]},
+  {eventname: "Football game", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
+    {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+  ]},
+  {eventname: "Micheal Jackson Concert", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
+    {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+  ]}
+]
+
+const [create, setCreate] = useState(false)
+
+
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/branch_logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Branch</ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="subtitle">Use Instagram to Login</ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.titleContainer}>
-        <Image
-          source={require('@/assets/images/Instagram_icon.png')}
-          style={styles.instaLogo}
-        />
-      </ThemedView>
-      {/* <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView> */}
-    </ParallaxScrollView>
+    <>
+    {!create &&
+      <ScrollView contentContainerStyle={styles.container}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={() => {setCreate(true)}}>
+            <Text style={styles.buttonText}>Create</Text>
+          </TouchableOpacity>
+        </View>
+        {events.map((customEvent, index) => (
+          <View style={styles.eventContainer}>
+            <EvenView
+              EventName={customEvent.eventname}
+              EventDate={customEvent.eventdate}
+              ProfileInfo={customEvent.profileInfo}
+            ></EvenView>
+          </View>
+        ))}
+      </ScrollView>
+    }
+    {create &&
+      <CreateEvent
+        handleCreate={() => {setCreate(false)}}
+      />
+    }
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  container: {
+    marginTop: 20,
+    justifyContent: 'flex-start'
+  },
+  eventContainer: {
+    marginTop: 10
+  },
+  buttonContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 8,
   },
-  instaLogo: {
-    width: 150,
-    height: 150,
+  button: {
+    width: '80%', // Or you can use a fixed width like 300
+    height: 40,
+    backgroundColor: '#008000',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    top: 0,
-    height: 400,
-    width: 400,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  buttonText: {
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });

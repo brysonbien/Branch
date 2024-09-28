@@ -1,7 +1,7 @@
-import { Image, View, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
+import { Image, View, Text, StyleSheet, Pressable, TouchableOpacity, Alert } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import React, { useState } from 'react';
-
+import openMap from 'react-native-open-maps';
 
 interface Profile {
   name: string;
@@ -12,7 +12,6 @@ export type EventViewProp = {
   EventName: string;
   EventDate: string;
   ProfileInfo: Array<Profile>;
-  type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link' | 'title2';
 };
 
 export default function EventView({
@@ -20,10 +19,23 @@ export default function EventView({
   EventDate,
   ProfileInfo,
 }: EventViewProp) {
-  const [expand, setExpand] = useState(true)
+  const [expand, setExpand] = useState(false)
 
   const toggleExpand = () => {
     setExpand(!expand)
+  }
+
+  const addEvent = () => {
+    console.log("event added")  
+  }
+
+  const toMap = () => {
+    openMap({ 
+      latitude: 37.78825, 
+      longitude: -122.4324,
+      zoom: 16,
+      query: EventName
+    });  
   }
 
   return (
@@ -39,9 +51,10 @@ export default function EventView({
               <Image
                 source={{uri: content.pic}}
                 style={styles.picture}
+                key={index}
               ></Image>
             ))}
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity onPress={addEvent} style={styles.button}>
               <Text style={styles.buttonText}>+</Text>
             </TouchableOpacity>
           </View>
@@ -49,7 +62,7 @@ export default function EventView({
         {expand && (
           <View style={styles.pictureContainerExpand}>
             {ProfileInfo.map((content, index) => (
-              <View style={styles.picText}>
+              <View style={styles.picText} key={index}>
                 <Image
                   source={{uri: content.pic}}
                   style={styles.picture}
@@ -57,6 +70,13 @@ export default function EventView({
                 <Text style={styles.username}>{content.name} {index == 0 && "(Creator)"}</Text>
               </View>
             ))}
+            <TouchableOpacity onPress={toMap}>
+              <Image style={styles.picture}
+              source={require("@/assets/images/googlemaps.png")}></Image>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={addEvent} style={styles.button}>
+              <Text style={styles.buttonText}>+</Text>
+            </TouchableOpacity>
           </View>
         )}
       </View>
@@ -101,7 +121,7 @@ const styles = StyleSheet.create({
     roundContainer: {
       width: 350,               // Set the width of the round container
       borderRadius: 25,         // Make it circular
-      backgroundColor: '#007BFF', // Background color
+      backgroundColor: '#008000', // Background color
       justifyContent: 'flex-start',  // Center text vertically
       elevation: 4,              // Shadow for Android
       shadowColor: '#000',       // Shadow color for iOS
@@ -137,11 +157,12 @@ const styles = StyleSheet.create({
       width: 40,  // Width of the button
       height: 40, // Height of the button
       borderRadius: 100, // Half of the width/height to make it rounded
-      backgroundColor: '#008000', // Button color
+      backgroundColor: '#007BFF', // Button color
       justifyContent: 'center', // Center the content vertically
       alignItems: 'center', // Center the content horizontally
     },
     buttonText: {
+      marginBottom: 5,
       fontSize: 30, // Size of the plus sign
       color: '#FFFFFF', // Text color
     },
