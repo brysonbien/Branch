@@ -1,3 +1,4 @@
+
 import pymysql
 from ..config import DB_PASSWORD
 
@@ -34,6 +35,7 @@ try:
             `InterestList` JSON,
             `InstagramToken` VARCHAR(255),
             `PasswordHash` VARCHAR(255) NOT NULL,
+            `Location` VARCHAR(50),
             `CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         """
@@ -84,3 +86,4 @@ try:
     print(cursor.fetchall())
 finally:
     connection.close()
+
