@@ -51,8 +51,11 @@ const [create, setCreate] = useState(false)
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
-    justifyContent: 'flex-start'
+    paddingTop: 20,
+    justifyContent: 'flex-start',
+    backgroundColor: 'white',
+    paddingBottom: "100%"
+    // height: "100%"
   },
   eventContainer: {
     marginTop: 10

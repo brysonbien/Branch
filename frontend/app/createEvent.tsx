@@ -4,6 +4,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import PhotoUpload from 'react-native-photo-upload';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 export type CreateEventProps = {
   handleCreate: (...args: any[]) => void;
@@ -25,6 +26,9 @@ export default function CreateEvent({
 
   return (
     <ThemedView style={styles.container}>      
+      <TouchableOpacity style={styles.backButton} onPress={handleSave}>
+        <AntDesign name="back" size={20} color="white" />
+      </TouchableOpacity>
       <Text style={styles.inputText}>Event Name</Text>
       <TextInput
         style={styles.input}
@@ -52,6 +56,14 @@ export default function CreateEvent({
 }
 
 const styles = StyleSheet.create({
+  backButton: {
+    width: 50,
+    height: 35,
+    backgroundColor: '#008000',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+  },
   interestButtonText: {
     color: '#fff',
     fontSize: 14,

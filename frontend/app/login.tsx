@@ -17,6 +17,7 @@ export default function HomeScreen() {
   const handleLogin = () => {
     console.log("username: " + username)
     console.log("password: " + password)
+    window.location.href = '/'
   }
 
   return (
