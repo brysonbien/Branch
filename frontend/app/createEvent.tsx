@@ -3,7 +3,6 @@ import { Image, Text, View, StyleSheet, Platform, TouchableOpacity, Button,TextI
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
-import MultiSelect from 'react-native-multiple-select';
 import PhotoUpload from 'react-native-photo-upload';
 
 export type CreateEventProps = {
