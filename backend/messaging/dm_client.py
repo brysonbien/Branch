@@ -12,33 +12,42 @@ def send_message(sender_id, receiver_id, message):
         "message": message
     }
     response = requests.post(send_url, json=data)
+    
     if response.status_code == 200:
-        print("Message sent successfully.")
+        print("Message sent successfully!")
     else:
-        print(f"Failed to send message: {response.json().get('error')}")
+        print(f"Failed to send message: {response.json()['error']}")
 
-# Function to get a conversation
-def get_conversation(sender_id, receiver_id):
-    get_url = f"{base_url}/get_conversation?sender_id={sender_id}&receiver_id={receiver_id}"
-    response = requests.get(get_url)
+# Function to view conversation
+def view_conversation(user1_id, user2_id):
+    view_url = f"{base_url}/view_conversation/{user1_id}/{user2_id}"
+    response = requests.get(view_url)
+    
     if response.status_code == 200:
-        conversation = response.json().get('conversation', [])
+        conversation = response.json()['conversation']
         for message in conversation:
-            print(f"{message['Timestamp']} - {message['SenderID']} to {message['ReceiverID']}: {message['Message']}")
+            print(f"{message['SenderID']} -> {message['ReceiverID']}: {message['Message']}")
     else:
-        print(f"Failed to retrieve conversation: {response.json().get('error')}")
+        print(f"Failed to retrieve conversation: {response.json()['error']}")
 
 if __name__ == "__main__":
-    # Sample flow for sending and receiving messages
-    sender_id = input("Enter your user ID: ")
-    receiver_id = input("Enter receiver's user ID: ")
-    
+    user_id = int(input("Enter your user ID: "))
+    other_user_id = int(input("Enter the other user's ID: "))
+
     while True:
         action = input("Enter 'send' to send a message or 'view' to view the conversation: ").strip().lower()
         if action == 'send':
+            # Ask whether the user wants to be the sender or receiver
+            role = input("Are you the sender or receiver? (type 'sender' or 'receiver'): ").strip().lower()
             message = input("Enter your message: ")
-            send_message(sender_id, receiver_id, message)
+
+            if role == 'sender':
+                send_message(user_id, other_user_id, message)
+            elif role == 'receiver':
+                send_message(other_user_id, user_id, message)
+            else:
+                print("Invalid role! Please choose 'sender' or 'receiver'.")
         elif action == 'view':
-            get_conversation(sender_id, receiver_id)
+            view_conversation(user_id, other_user_id)
         else:
-            print("Invalid action. Please enter 'send' or 'view'.")
+            print("Invalid action! Please type 'send' or 'view'.")

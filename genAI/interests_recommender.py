@@ -20,7 +20,7 @@ def get_interests_recommender(interests):
     # Generate text using the InferenceClient
     response = client.text_generation(
         prompt,
-        max_new_tokens=100,  # Adjust the number of tokens as needed
+        max_new_tokens=32,  # Adjust the number of tokens as needed
         temperature=0.1,    # Adjust the randomness of the output
     )
 

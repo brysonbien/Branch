@@ -1,16 +1,17 @@
-import pymysql
 import os
+import pymysql
 
-# Load database password
+# Read database password from pass.txt file
 def get_db_password():
     with open(os.path.join(os.path.dirname(__file__), '..', 'password.txt'), 'r') as f:
         return f.read().strip()
 
 DB_PASSWORD = get_db_password()
 
-# Establish a connection to the database
+# Function to get a database connection
 def get_connection():
-    timeout = 10
+    """Create a new database connection."""
+    timeout = 10  # Define connection parameters
     return pymysql.connect(
         charset="utf8mb4",
         connect_timeout=timeout,
@@ -24,25 +25,29 @@ def get_connection():
         write_timeout=timeout,
     )
 
-# Save a message to the database
-def save_message(sender_id, receiver_id, message):
-    connection = get_connection()
+# Function to add a message to the Messages table
+def add_message(sender_id, receiver_id, message):
     try:
+        connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            INSERT INTO `Messages` (`SenderID`, `ReceiverID`, `Message`, `Timestamp`)
-            VALUES (%s, %s, %s, NOW());
+            INSERT INTO `Messages` (`SenderID`, `ReceiverID`, `Message`)
+            VALUES (%s, %s, %s);
             """
             cursor.execute(sql, (sender_id, receiver_id, message))
         connection.commit()
+        print(f"Message from '{sender_id}' to '{receiver_id}' added.")
+    except pymysql.MySQLError as e:
+        print(f"Failed to add message: {e.args[1]} (Error Code: {e.args[0]})")
     finally:
-        connection.close()
+        if connection:
+            connection.close()
 
-# Get conversation between two users
-def get_conversation(sender_id, receiver_id):
-    connection = get_connection()
+# Function to retrieve a conversation between two users
+def get_conversation(user1_id, user2_id):
     try:
+        connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
@@ -50,9 +55,13 @@ def get_conversation(sender_id, receiver_id):
             FROM `Messages`
             WHERE (`SenderID` = %s AND `ReceiverID` = %s)
                OR (`SenderID` = %s AND `ReceiverID` = %s)
-            ORDER BY `Timestamp` ASC;
+            ORDER BY `Timestamp`;
             """
-            cursor.execute(sql, (sender_id, receiver_id, receiver_id, sender_id))
+            cursor.execute(sql, (user1_id, user2_id, user2_id, user1_id))
             return cursor.fetchall()
+    except pymysql.MySQLError as e:
+        print(f"Failed to retrieve conversation: {e.args[1]} (Error Code: {e.args[0]})")
+        return []
     finally:
-        connection.close()
+        if connection:
+            connection.close()
