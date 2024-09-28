@@ -31,7 +31,7 @@ def get_interests_recommender(interests):
     # Remove numeric prefixes and clean up the text
     modified_list = [s[3:] for s in generated_text]
     print(modified_list)
-    return modified_list
+    return modified_list[0:5]
 
 def find_tags(eventname, eventdesc):
     # Create the client with the correct model
@@ -60,7 +60,7 @@ def find_tags(eventname, eventdesc):
     # Remove numeric prefixes and clean up the text
     modified_list = [s[3:] for s in generated_text]
     print(modified_list)
-    return modified_list
+    return modified_list[0:4]
 
 
 if __name__ == "__main__":
