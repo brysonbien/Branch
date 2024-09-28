@@ -5,7 +5,7 @@ from instagrapi.exceptions import ChallengeRequired, LoginRequired
 import json
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'db_server'))
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'database'))
 import db_writer
 
 # Initialize Flask app and Instagram client
@@ -31,8 +31,6 @@ def login():
     data = request.json
     username = data.get('username')
     password = data.get('password')
-    location = data.get('location', '')  # Assume location is passed in the request body
-    interests = data.get('interests', '[]')  # Default empty interests list
 
     try:
         # Log in to Instagram
@@ -59,10 +57,7 @@ def login():
         # Store user credentials, user info, and mutual followers in the database
         db_writer.add_user(
             username=username,
-            image=None,  # Optional, add image data if needed
-            interest_list=json.dumps(interests),  # Convert interests to JSON string
             password_hash=password,  # Consider hashing the password before storing it
-            location=location,
             mutuals=json.dumps(mutual_usernames)  # Convert mutuals to JSON string
         )
 
