@@ -1,6 +1,12 @@
-
+import os
 import pymysql
-from ..config import DB_PASSWORD
+
+# Read database password from pass.txt file
+def get_db_password():
+    with open(os.path.join(os.path.dirname(__file__), '..', 'password.txt'), 'r') as f:
+        return f.read().strip()
+
+DB_PASSWORD = get_db_password()
 
 timeout = 10
 connection = pymysql.connect(

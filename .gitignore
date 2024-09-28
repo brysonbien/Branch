@@ -10,7 +10,7 @@ frontend/.mobileprovision
 frontend/.orig.*
 frontend/web-build/
 
-/backend/config.py
+backend/password.txt
 # macOS
 .DS_Store
 
