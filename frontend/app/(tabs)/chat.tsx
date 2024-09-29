@@ -9,6 +9,7 @@ export default function Chat() {
   const [inChat, setInChat] = useState(false)
   const [receiver, setReceiver] = useState("")
   const [message, setMessage] = useState("")
+  const [allMessages, setAllMessages] = useState(Array)
 
   const messages = [
     { id: '1', text: 'Hello!', sender: 'me' },
