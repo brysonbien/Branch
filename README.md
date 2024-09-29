@@ -27,9 +27,6 @@ Branch employs Generative AI to enhance user experience and improve connections 
 - **Who's In Town**: Know who’s in your area, see how long they’ll be around, and arrange meetups.
 - **Mental Health and Inclusion**: Promote genuine connections, foster a supportive community, and tackle mental health issues through an inclusive platform.
 
-### Technologies
-Python, SQL, TypeScript, React Native, AWS, Git
-
 ## How the App Works
 
 Users will sign in with there Instagram account, select their location, interests, and profile photo. Then they ca n start branching out to those around them, with similar interests, and join others or invite people to plans.
@@ -51,3 +48,6 @@ The frontend is developed using React and TypeScript, providing a dynamic and ty
 
 ### Generative AI
 The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections allowing users to branch out based on interest-pairing recommendations.
+
+## Technologies
+Python, SQL, TypeScript, React Native, AWS, Git
