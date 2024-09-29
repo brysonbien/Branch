@@ -91,31 +91,35 @@ def update_user(UserOBJ):
 
 def add_event(EventOBJ):
     EventID = EventOBJ.EventID
-    AttendeeArr = EventOBJ.AttendeeArr
     EventName = EventOBJ.EventName
     Description = EventOBJ.EventDescription
     Date = EventOBJ.EventDate
     Location = EventOBJ.Location
     Attendees = EventOBJ.AllAttendeeArr
+    Tags = EventOBJ.Tags
     EventTags = interests_recommender.get_event_tags(EventName, Description)
-    return
+
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            INSERT INTO `Users` (`Username`, `Image`, `InterestList`, `PasswordHash`, `Location`, `Extended Interests`)
-            VALUES (%s, %s, %s, %s, %s, %s, %s)
-            ON DUPLICATE KEY UPDATE
-            `PasswordHash` = VALUES(`PasswordHash`),
-            `Location` = VALUES(`Location`),
-            `mutuals` = VALUES(`mutuals`);
+            UPDATE `Events` 
+            SET
+                `EventName` = %s,
+                `Image` = %s,
+                `EventDescription` = %s,
+                `PasswordHash` = %s,
+                `Location` = %s,
+                `Tags` = %s
+            WHERE `UserID` = %s;
             """
-            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list))
+
+            cursor.execute(sql, (EventName, image, interest_list, password_hash, location, extended_interest_list, userid))
         connection.commit()
         print(f"User '{username}' added/updated in Users table.")
     except pymysql.MySQLError as e:
-        print(f"Failed to add user: {e.args[1]} (Error Code: {e.args[0]})")
+        print(f"Failed to update user: {e.args[1]} (Error Code: {e.args[0]})")
     finally:
         if connection:
             connection.close()
@@ -127,9 +131,10 @@ if __name__ == "__main__":
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
     tempuser = User(find_userid('johnny test'))
     tempuser.fill_user()
+    tempuser.Name = 'jahrath'
     tempuser.InterestList = ['refrevre', 'trreveng', 'cewfeg', 'skarevng']
     tempuser.Location = 'Mommyc'
 
     update_user(tempuser)
-    #print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
+    print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.Location, tempuser.Name)
     #print(tempuser.myEventIDArr)

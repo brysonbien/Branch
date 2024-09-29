@@ -133,7 +133,7 @@ def updateprofilepage():
     CurrentInstance.MyUser.InterestList = data.get('interest_list')
     CurrentInstance.MyUser.Location = data.get('location')
     try:
-        db_writer.update_user(CurrentInstance.User)
+        db_writer.update_user(CurrentInstance.MyUser)
     except Exception as e:
         return jsonify({'error': 'Failed to Update'})
 
