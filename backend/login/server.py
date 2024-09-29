@@ -144,7 +144,7 @@ def updateprofilepage():
 
     
     return jsonify({
-    'message': 'Sucessful Update',
+    'message': 'Sucessful Update'
 }), 200
 
 @app.route('/getAIInterests', methods=['GET'])

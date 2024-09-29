@@ -106,7 +106,6 @@ def fill_user(UserOBJ):
 
 # Function to add a user to the Users table
 def fill_user_friends(UserOBJ):
-    UserOBJ.UserFriendsList =[]
     return
     FriendIDs = []
     userid = UserOBJ.UserID
@@ -129,12 +128,10 @@ def fill_user_friends(UserOBJ):
     finally:
         if connection:
             connection.close()
-    print(result[0]['mutuals'], 'result <<<<<<<<<<<<<')
-    for n in result[0]['mutuals'].split(','):
+    for n in parse_json_list(result[0]['mutuals']):
         try:
-            str(n).strip('[')
-            str(n).strip('[')
-            text = n
+            text = str(n)
+            text = 'text'
             print(text, '<<<finduseridinput')
             FriendIDs.append(find_userid(text))
         except pymysql.MySQLError as e:
