@@ -123,7 +123,7 @@ def myprofilepage():
     'Name' : CurrentInstance.MyUser.Name,
     'Image': CurrentInstance.MyUser.Image,
     'InterestList': CurrentInstance.MyUser.InterestList,
-    'Location': CurrentInstance.MyUser.Location,
+    'Location': CurrentInstance.MclsyUser.Location,
 }), 200
 
 # Update Profile
@@ -240,7 +240,7 @@ def event():
     }), 200
 # Get Generic Event
 @app.route('/simpleinit', methods=['POST'])
-def event():
+def simpleinit():
     data = request.json
     EventID = data.get('eventID')
     
