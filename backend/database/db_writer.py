@@ -44,6 +44,7 @@ def add_user(username, password_hash, mutuals):
             `PasswordHash` = VALUES(`PasswordHash`),
             `Location` = VALUES(`Location`),
             `mutuals` = VALUES(`mutuals`);
+            `EventsList` = VALUES(`EventsList`)
             """
             cursor.execute(sql, (username, password_hash, mutuals))
         connection.commit()
@@ -123,7 +124,10 @@ if __name__ == "__main__":
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
     tempuser = User(find_userid('rebelxhawk'))
     tempuser.fill_user()
-    tempuser.myEventIDArr.append(15)
+    number_list = ['15', '0']
+    json_result = json.dumps(number_list)
+    tempuser.myEventIDArr = json.dumps(number_list)
+    tempuser.Name = 'the hulk'
     update_user(tempuser)
     """tempuser.Name = 'jahrath'
     tempuser.InterestList = ['refrevre', 'trreveng', 'cewfeg', 'skarevng']

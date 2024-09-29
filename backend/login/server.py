@@ -97,8 +97,10 @@ def init():
     except Exception as e:
         return jsonify({'error': 'Username Invalid!'})
     
+    
     CurrentInstance.MyUser = classes.User(userID)
     initializeApp.init(CurrentInstance)
+    print(CurrentInstance.EventList)
 
     
     return jsonify({
@@ -177,6 +179,7 @@ def myeventspage():
 
     jsonArr = []
     for event in CurrentInstance.EventList:
+        print(event.EventName, 'EVENTfrceewcercrcwecw')
         jsonArr.append(jsonify({
         'EventName' : event.EventName,
         'EventDate': event.EventDate,
