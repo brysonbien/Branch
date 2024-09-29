@@ -144,15 +144,7 @@ def updateprofilepage():
 
     
     return jsonify({
-    'message': 'Sucessful Update'
-}), 200
-
-@app.route('/getAIInterests', methods=['GET'])
-def getAIInterests():
-
-    return jsonify({
-    'message': '_',
-    'AI_Interests': CurrentInstance.MyUser.ExtendedInterestList
+    'message': 'Sucessful Update',
 }), 200
 
 # Get Generic Profile
@@ -233,8 +225,8 @@ def getusername():
     
 
 # Get Generic Event
-@app.route('/getevent', methods=['POST'])
-def getevent():
+@app.route('/event', methods=['POST'])
+def event():
     data = request.json
     EventID = data.get('eventID')
     
@@ -249,24 +241,6 @@ def getevent():
         'EventDescription' : newEvent.EventDescription,
         'Location': newEvent.Location
     }), 200
-# Get Generic Event
-@app.route('/simpleinit', methods=['POST'])
-def simpleinit():
-    data = request.json
-    EventID = data.get('eventID')
-    
-    newEvent = classes.Event([CurrentInstance.MyUser.UserID], EventID)
-    db_reader.fill_event(newEvent)
-
-    
-    return jsonify({
-        'message': 'Event Found',
-        'EventName' : newEvent.EventName,
-        'EventDate' : newEvent.EventDate,
-        'EventDescription' : newEvent.EventDescription,
-        'Location': newEvent.Location
-    }), 200
-
 
 # Debugging route for testing server status
 @app.route('/')

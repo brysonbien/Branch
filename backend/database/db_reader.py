@@ -104,9 +104,38 @@ def fill_user(UserOBJ):
         if connection:
             connection.close()
 
+def fill_event(EventOBJ):
+    Eventid = EventOBJ.EventID
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            cursor.execute("""
+                SELECT `EventName`, `EventDate`, `EventDescription`, `Location`,`Tags`
+                FROM `Events` 
+                WHERE `EventID` = %s
+                """ % Eventid)
+            result = cursor.fetchone()
+            
+            if result:
+                EventOBJ.EventName = result['EventName']
+                EventOBJ.EventDescription = result['EventDescription']
+                EventOBJ.EventDate = result['EventDate']
+                EventOBJ.Tags = parse_json_list(result['Tags'])
+                EventOBJ.Location = result['Location']
+                print(f"Event data retrieved successfully for UserID: {Eventid}")
+            else:
+                print(f"No event found with EventID: {Eventid}")
+
+    except pymysql.MySQLError as e:
+        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+        return []
+    finally:
+        if connection:
+            connection.close()
+
 # Function to add a user to the Users table
 def fill_user_friends(UserOBJ):
-    return
     FriendIDs = []
     userid = UserOBJ.UserID
     try:
@@ -128,11 +157,14 @@ def fill_user_friends(UserOBJ):
     finally:
         if connection:
             connection.close()
-    for n in parse_json_list(result[0]['mutuals']):
+    
+    for n in result:
         try:
+
             text = str(n)
             text = 'text'
             print(text, '<<<finduseridinput')
+
             FriendIDs.append(find_userid(text))
         except pymysql.MySQLError as e:
             continue
@@ -179,12 +211,13 @@ def fill_event(EventOBJ):
 
 if __name__ == "__main__":
     event = Event([], 16)
+    fill_event(event)
+    print(event.EventDescription)
     # Add a user (example)
-    newUser = User(10)
-    newUser.fill_user()
-    newUser.fill_user_friends()
-    print(newUser.ExtendedInterestList, newUser.InterestList, newUser.Name, newUser.Location)
-    numbers = [int(x) for x in newUser.myEventIDArr]
-    newEvent = Event(['coco'], numbers[0])
-    fill_event(newEvent)
-    print(newEvent.EventName, newEvent.EventDate, newEvent.EventDescription, newEvent.KAttendeeArr)
+    #newUser = User(83)
+    #newUser.fill_user()
+    #newUser.fill_user_friends()
+    #numbers = [int(x) for x in newUser.myEventIDArr]
+    #newEvent = Event(['coco'], numbers[0])
+    #fill_event(newEvent)
+    #print(newEvent.EventName, newEvent.EventDate, newEvent.EventDescription, newEvent.KAttendeeArr)
