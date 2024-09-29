@@ -12,9 +12,9 @@ import {base_url} from '@/constants/apiRoute'
 export default function User() {
   const [edit, setEdit] = useState(true)
   // const [username, setUsername] = useMMKVString('user.name')
-  const [location, setLocation] = useState('loading...')
+  const [location, setLocation] = useState('')
   const [interests, setInterests] = useState(Array<string>)
-  const [name, setName] = useState('loading...')
+  const [name, setName] = useState('')
 
   const handleEdit = () => {
     setEdit(true)

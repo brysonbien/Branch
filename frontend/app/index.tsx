@@ -22,7 +22,7 @@ export default function HomeScreen() {
     if (await instaLogin()) {
       getUserInfo()
       // storage.set('user.name', username)
-      window.location.href = '/home'
+      window.location.href = '/user'
     }
   }
 
@@ -52,6 +52,7 @@ export default function HomeScreen() {
   }
 
   const instaLogin = async () => {
+    return "rebelxhawk"
     try {
       const loginData = {
         username: username,

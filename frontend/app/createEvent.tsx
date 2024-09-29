@@ -5,6 +5,7 @@ import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import PhotoUpload from 'react-native-photo-upload';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import {base_url} from '@/constants/apiRoute'
 
 export type CreateEventProps = {
   handleCreate: (...args: any[]) => void;
@@ -16,17 +17,74 @@ export default function CreateEvent({
 }: CreateEventProps) {
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
+  const [time, setTime] = useState("")
+  const [description, setDescription] = useState("")
+  const [username, setUsername] = useState("")
 
+  const getUsername = async () => {
+    try {
+      const response = await fetch(base_url + '/getusername', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+      });
+
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.text();
+      setUsername(data)
+      console.log('Data from Flask:', data);
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
+
+  const createEvent = async () => {
+    try {
+      const eventData = {
+        username: "rebelxhawk",
+        EventName: name,
+        Location: location,
+        EventDate: "2024-" + time + " 10:45:00",
+        EventDescripton: description
+      }
+      console.log(eventData)
+      const response = await fetch(base_url + '/createevent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+        body: JSON.stringify(eventData),
+      });
   
+      if (!response.ok) {
+        return false;
+      }
+  
+      const data = await response.json();
+      console.log('Data from Flask:', data);
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
 
-  const handleSave = () => {
-    console.log("Event Created")
-    handleCreate()
+  const handleSave = async () => {
+    // if (await getUsername()) {
+      if (await createEvent()) {
+        handleCreate()
+      }
+    // }
   }
 
   return (
     <ThemedView style={styles.container}>      
-      <TouchableOpacity style={styles.backButton} onPress={handleSave}>
+      <TouchableOpacity style={styles.backButton} onPress={handleCreate}>
         <AntDesign name="back" size={20} color="white" />
       </TouchableOpacity>
       <Text style={styles.inputText}>Event Name</Text>
@@ -45,6 +103,26 @@ export default function CreateEvent({
         placeholderTextColor="#aaa"
         value={location}
         onChangeText={setLocation}
+        autoCapitalize="none"
+      />
+      <Text style={styles.inputText}>Date Time</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Date Time"
+        placeholderTextColor="#aaa"
+        value={time}
+        onChangeText={setTime}
+        autoCapitalize="none"
+      />
+      <Text style={styles.inputText}>Description</Text>
+      <TextInput
+        style={styles.inputBox}
+        multiline={true}
+        // numberOfLines={4}    
+        placeholder="Description"
+        placeholderTextColor="#aaa"
+        value={description}
+        onChangeText={setDescription}
         autoCapitalize="none"
       />
       <TouchableOpacity style={styles.button} onPress={handleSave}>
@@ -128,6 +206,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 8,
     paddingHorizontal: 15,
+    marginBottom: 15,
+    borderColor: '#ddd',
+    borderWidth: 1,
+    fontSize: 16,
+  },
+  inputBox: {
+    width: '100%',
+    height: 100,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    paddingHorizontal: 15,
+    paddingTop: 10,
     marginBottom: 15,
     borderColor: '#ddd',
     borderWidth: 1,
