@@ -145,6 +145,13 @@ def updateprofilepage():
     
     return jsonify({
     'message': 'Sucessful Update',
+}), 200
+
+@app.route('/getAIInterests', methods=['GET'])
+def getAIInterests():
+
+    return jsonify({
+    'message': '_',
     'AI_Interests': CurrentInstance.MyUser.ExtendedInterestList
 }), 200
 
