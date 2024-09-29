@@ -16,9 +16,10 @@ The Harvard Study of Adult Development, one of the longest studies on human happ
 Branch enables users to make plans with real people, in real life, with common interests, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
 
 ## Artificial Intelligence
-Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles based on shared interests using machine learning models to make connections.
+Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles and events based on shared interests using machine learning models to make connections.
 - **Better Connections**: By matching users based on shared interests, the platform encourages more meaningful connections.
-- **Improved Discoverability**: Users can find like-minded people more easily, fostering stronger communities within the app.
+- **Improved Discoverability**: Users can find events with a personalized interest-pairing algorithm, fostering stronger communities within the app.
+  
 ## Features
 - **Event Planning**: Share upcoming events with those around you and branch out.
 - **Who's In Town**: Know which mutuals are in your area, see how long they’ll be around, and arrange meetups.
@@ -46,5 +47,5 @@ Messaging between users is managed through dedicated client-server architecture 
 The frontend is developed using React and TypeScript, providing a dynamic and type-safe environment for building user interfaces and components. This allows for quick iteration and ensures a responsive user experience across all pages and features.
 
 ### Generative AI
-The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections by prioritizing relevant branches in the app's nearby search based on interest recommendations.
+The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections allowing users to branch out based on interest-pairing recommendations.
 
