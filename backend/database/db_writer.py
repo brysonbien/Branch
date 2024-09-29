@@ -60,7 +60,7 @@ def add_user(username, password_hash, mutuals):
 def update_user(UserOBJ):
     interest_list = json.dumps(UserOBJ.InterestList)
     event_list = json.dumps(UserOBJ.myEventIDArr)
-    extended_interest_list = json.dumps(interests_recommender.get_interests_recommender(UserOBJ.InterestList))
+    UserOBJ.ExtendedInterestList = extended_interest_list = json.dumps(interests_recommender.get_interests_recommender(UserOBJ.InterestList))
     print(extended_interest_list)
     password_hash = UserOBJ.Password
     username = UserOBJ.Username
