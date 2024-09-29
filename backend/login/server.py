@@ -128,7 +128,8 @@ def myprofilepage():
     'Name' : CurrentInstance.MyUser.Name,
     'Image': CurrentInstance.MyUser.Image,
     'InterestList': CurrentInstance.MyUser.InterestList,
-    'Location': CurrentInstance.MyUser.Location
+    'Location': CurrentInstance.MyUser.Location,
+    'EventIDs': CurrentInstance.MyUser.EventsList
 }), 200
 
 # Update Profile
@@ -194,32 +195,59 @@ def myeventspage():
 
     return Response(json.dumps(jsonArr), mimetype='application/json'), 200
 
+# Get My Events Page
+@app.route('/createevent', methods=['POST'])
+def createevent():
+    data = request.json
+    username = data.get('username')
+
+    userid = db_reader.find_userid(username)
+    currUser = classes.User(userid)
+    currUser.fill_user()
+    newEvent = classes.Event([userid])
+
+    newEvent.EventName  = data.get('EventName')
+    newEvent.EventDate  = data.get('EventDate')
+    newEvent.EventDescription  = data.get('EventDescripton')
+    newEvent.Location = data.get('Location')
+    try:
+        db_writer.create_event(newEvent)
+    except Exception as e:
+        return jsonify({'error': 'Event Not Created!'})
+    currUser.EventsList.append(newEvent.EventID)
+    try:
+        db_writer.update_user(currUser)
+        return jsonify({'message': newEvent.EventID})
+    except Exception as e:
+        return jsonify({'error': 'User Not Updated!'})
+
+@app.route('/getusername', methods=['GET'])
+def getusername():
+    return CurrentInstance.MyUser.Username
+    
+
 # Get Generic Event
-"""@app.route('/event', methods=['POST'])
+@app.route('/event', methods=['POST'])
 def event():
     data = request.json
-    EventName = data.get('eventName')
-    try:
-        userID = db_reader.find_userid(username)
-    except Exception as e:
-        return jsonify({'error': 'Username Invalid!'})
-
-    user = classes.User(userID)
-    user.fill_user()
+    EventID = data.get('eventID')
+    
+    newEvent = classes.Event([CurrentInstance.MyUser.UserID], EventID)
+    db_reader.fill_event(newEvent)
 
     
     return jsonify({
-    'message': 'User Found',
-    'Name' : user.Name,
-    'Image': user.Image,
-    'InterestList': user.InterestList,
-    'Location': user.Location
-}), 200
+        'message': 'Event Found',
+        'EventName' : newEvent.EventName,
+        'EventDate' : newEvent.EventDate,
+        'EventDescription' : newEvent.EventDescription,
+        'Location': newEvent.Location
+    }), 200
 
 # Debugging route for testing server status
 @app.route('/')
 def home():
-    return "Server is running", 200"""
+    return "Server is running", 200
 
 # --- Messaging Functionality ---
 # Endpoint to send a message
