@@ -13,7 +13,7 @@ An app that fosters real-life connections is valuable because it promotes deeper
 
 The Harvard Study of Adult Development, one of the longest studies on human happiness, found that close **relationships**, more than money or fame, are what keep people happy throughout their lives. Encouraging people to connect face-to-face can foster a sense of community, reduce social isolation, and promote mental health, making Branch a powerful tool for positive social change.
 
-Branch enables users to make plans with real people, in real life, with common interests, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
+Branch is a special app that's goal is to get people off the app by enabling users to make plans with real people, in real life, with common interests, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
 
 ## Artificial Intelligence
 Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles and events based on shared interests using machine learning models to make connections.
