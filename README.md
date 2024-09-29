@@ -21,10 +21,10 @@ Branch employs Generative AI to enhance user experience and improve connections 
 - **Easily Breanch Out**: Users can find events with a personalized interest-pairing algorithm, fostering stronger communities within the app.
   
 ## Features
-- **Event Planning**: Share upcoming events with those around you and branch out.
+- **Instagram Connection**: Connect your Instagram to for instagrapi to find your mutual following & followers.
+- **Event Planning**: Share upcoming events with those around you and branch out. (Also implemented Google Maps API)
 - **Who's In Town**: Know which mutuals are in your area, see how long they’ll be around, and arrange meetups.
 - **Direct Messaging**: Chat with friends one-on-one or create group chats for planning and catching up.
-- **Who's In Town**: Know who’s in your area, see how long they’ll be around, and arrange meetups.
 - **Mental Health and Inclusion**: Promote genuine connections, foster a supportive community, and tackle mental health issues through an inclusive platform.
 
 ## How the App Works
