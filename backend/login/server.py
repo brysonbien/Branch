@@ -9,7 +9,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'database'))
 import db_writer
 import classes
 import db_reader
-import init
+import initializeApp
 
 # Initialize Flask app and Instagram client
 app = Flask(__name__)
@@ -87,7 +87,7 @@ def init():
         return jsonify({'error': 'Username Invalid!'})
     
     CurrentInstance = classes.AppInstance(userID)
-    init.init(CurrentInstance)
+    initializeApp.init(CurrentInstance)
 
     
     return jsonify({
