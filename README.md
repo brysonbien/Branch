@@ -7,18 +7,19 @@
 ##### Aditya Singh - adityasht@gmail.com - Backend
 ##### Feiyang Xie - fxie64@gatech.edu - Frontend
 
-### Branch is an interactive application designed to enhance human connections and foster habits that promote positive mental well-being.
+- ### Branch is an interactive application designed to enhance human connections and foster habits that promote positive mental well-being, providing a social tool for helping people branch out.
 
 An app that fosters real-life connections is valuable because it promotes deeper, more meaningful relationships, which are essential for mental and emotional well-being. Unlike digital interactions, face-to-face connections provide trust, empathy, and support, reducing stress and loneliness. Research shows that people with strong in-person networks are happier and healthier. By encouraging these real-life interactions, the app can help build stronger communities, enhance social cohesion, and support overall mental health, making it a powerful tool for positive social change by helping people branch out.
 
 The Harvard Study of Adult Development, one of the longest studies on human happiness, found that close **relationships**, more than money or fame, are what keep people happy throughout their lives. Encouraging people to connect face-to-face can foster a sense of community, reduce social isolation, and promote mental health, making Branch a powerful tool for positive social change.
 
-Branch enables users to make plans with real people, in real life, with common interests, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
+Branch is a special app that's goal is to get people off the app by enabling users to make plans with real people, in real life, with common interests, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
 
 ## Artificial Intelligence
-Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles based on shared interests using machine learning models to make connections.
+Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles and events based on shared interests using machine learning models to make connections.
 - **Better Connections**: By matching users based on shared interests, the platform encourages more meaningful connections.
-- **Improved Discoverability**: Users can find like-minded people more easily, fostering stronger communities within the app.
+- **Improved Discoverability**: Users can find events with a personalized interest-pairing algorithm, fostering stronger communities within the app.
+  
 ## Features
 - **Event Planning**: Share upcoming events with those around you and branch out.
 - **Who's In Town**: Know which mutuals are in your area, see how long they’ll be around, and arrange meetups.
@@ -34,7 +35,7 @@ Users will sign in with there Instagram account, select their location, interest
 The backend is built using Python 3, providing a robust and flexible environment for handling all server-side functionalities, such as authentication, messaging, and AI processing.
 
 ### Database
-The database uses SQL for structured data management and is accessed through AWS, ensuring reliable storage and scalability. It holds data related to users, messages, and any other necessary app entities.
+The cloud database uses SQL for structured data management and is accessed through AWS, ensuring reliable storage and scalability. It holds data related to users, messages, and any other necessary app entities.
 
 ### Login
 Login functionality is implemented using Flask to create RESTful client and server applications, with the Instagrapi library used to manage and authenticate user accounts, allowing seamless integration with Instagram services.
@@ -46,5 +47,7 @@ Messaging between users is managed through dedicated client-server architecture 
 The frontend is developed using React and TypeScript, providing a dynamic and type-safe environment for building user interfaces and components. This allows for quick iteration and ensures a responsive user experience across all pages and features.
 
 ### Generative AI
-The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections by prioritizing relevant branches in the app's nearby search based on interest recommendations.
+The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections allowing users to branch out based on interest-pairing recommendations.
 
+## Technologies
+Python, SQL, TypeScript, React Native, AWS, Git
