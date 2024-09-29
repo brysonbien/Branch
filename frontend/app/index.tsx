@@ -29,7 +29,7 @@ export default function HomeScreen() {
   const getUserInfo = async () => {
     try {
       const userData = {
-        username: username,
+        username: "rebelxhawk",
       }
       const response = await fetch(base_url + '/init', {
         method: 'POST',

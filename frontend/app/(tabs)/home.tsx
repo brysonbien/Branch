@@ -22,9 +22,9 @@ export default function HomeScreen() {
     {name: 'Inkyung', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqOH9ife85JK3m5lBwE8YBVE40MsF5KLnCkQ&s'},
     {name: 'Jack', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZAPq07xr155Bi5zkTjI5GMjB6AB3qlk9DOw&s'},
   ]},
-  {eventname: "Football game", eventdate: "2024-08-12", profileInfo: [{name: 'Mia', pic: 'https://play-lh.googleusercontent.com/jInS55DYPnTZq8GpylyLmK2L2cDmUoahVacfN_Js_TsOkBEoizKmAl5-p8iFeLiNjtE=w526-h296-rw'}, 
-    {name: 'Erica', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjgozuCfOm6KK6d5WM06498mrXzZB12TawhA&s'},
-    {name: 'Anna', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4q4WLuAzSHosjkVws4BwFSEEHbg3npY5rWA&s'}
+  {eventname: "Japanese Culture Exhibition", eventdate: "2024-09-15", profileInfo: [{name: 'Gipson', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbD-_Kg0JWpPcSer-gunVoK5r6GrzdJZRTnA&s'}, 
+    {name: 'Perry', pic: 'https://www.shiguang.pro/skycaiji/data/images/5c/b9c9a29e91c2777777210a51dfe550.jpg'},
+    {name: 'James', pic: 'https://p9-pc-sign.douyinpic.com/tos-cn-i-0813/163cfff64f5a4968ae2faaa7ceefe990~tplv-dy-aweme-images:q75.webp?biz_tag=aweme_images&from=327834062&s=PackSourceEnum_SEARCH&sc=image&se=false&x-expires=1730124000&x-signature=i%2BBzxjwkLQc2AD1pKiMlW1ptFoQ%3D'}
   ]},
   ]
 

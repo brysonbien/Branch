@@ -15,7 +15,7 @@ export default function Chat() {
 
   const user1 = 1
 
-  const users = [{name: 'John Doe',id: 10, pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  const users = [{name: 'Tony',id: 10, pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
   },
   {name: 'George',id: 12, pic: 'https://img.k2r2.com/uploads/frombd/0/253/3082275325/3261503094.jpg!190pic',
@@ -23,7 +23,11 @@ export default function Chat() {
   },
   {name: 'Darius', id: 15, pic: 'https://patchwiki.biligame.com/images/sr/4/45/635ho4kx5ge6epx3bkn6pzp3mbsvezk.png',
     interests: ['Music', 'Gaming', 'Squashing']
+  },
+  {name: 'Perry', id: 17, pic: 'https://www.shiguang.pro/skycaiji/data/images/5c/b9c9a29e91c2777777210a51dfe550.jpg',
+    interests: ['Music', 'Gaming', 'Squashing']
   }]
+  
 
   const goToChat = (id:number) => {
     setUser2(id)

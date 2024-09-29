@@ -53,7 +53,7 @@ export default function TabTwoScreen() {
   
   useEffect(() => {
     getAI()
-  }, [])
+  }, [interest])
 
   const getAI = async () => {
     try {
@@ -101,7 +101,11 @@ export default function TabTwoScreen() {
                 <View style={styles.pillContainer}>
                   {user.interests.map((interest, index) => (
                     <TouchableOpacity style={styles.pill}>
-                      <Text style={styles.pillText}>{interests[Math.floor(Math.random() * 5)]}</Text>
+                      {interests.length > 0 }
+                      <Text style={styles.pillText}>{
+                        interests.length > 1 ? interests[Math.floor(Math.random() * (interest.length-1))] :
+                        interest
+                      }</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
