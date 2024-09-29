@@ -1,3 +1,4 @@
+# python3 /backend/login/server.py
 from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from instagrapi import Client
@@ -10,11 +11,14 @@ import db_writer
 import classes
 import db_reader
 import initializeApp
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'messaging'))
+import dm_handler
 
 # Initialize Flask app and Instagram client
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 cl = Client()
+
 class AppInstance:
     def __init__(self):
         self.MyUser = None
@@ -214,6 +218,32 @@ def event():
 @app.route('/')
 def home():
     return "Server is running", 200"""
+
+# --- Messaging Functionality ---
+# Endpoint to send a message
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    data = request.json
+    sender_id = data.get('sender_id')
+    receiver_id = data.get('receiver_id')
+    message = data.get('message')
+    
+    try:
+        # Write the message to the database
+        dm_handler.add_message(sender_id, receiver_id, message)
+        return jsonify({'message': 'Message sent successfully!'}), 200
+    except pymysql.MySQLError as e:
+        return jsonify({'error': str(e)}), 500
+
+# Endpoint to view conversation between two users
+@app.route('/view_conversation/<int:user1_id>/<int:user2_id>', methods=['GET'])
+def view_conversation(user1_id, user2_id):
+    try:
+        # Retrieve conversation from the database
+        conversation = dm_handler.get_conversation(user1_id, user2_id)
+        return jsonify({'conversation': conversation}), 200
+    except pymysql.MySQLError as e:
+        return jsonify({'error': str(e)}), 500
 
 # Run the Flask app
 if __name__ == '__main__':
