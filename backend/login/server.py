@@ -141,6 +141,7 @@ def updateprofilepage():
     
     return jsonify({
     'message': 'Sucessful Update',
+    'AI_Interests': CurrentInstance.MyUser.ExtendedInterestList
 }), 200
 
 # Get Generic Profile
