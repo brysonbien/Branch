@@ -31,8 +31,8 @@ def view_conversation(user1_id, user2_id):
         print(f"Failed to retrieve conversation: {response.json()['error']}")
 
 if __name__ == "__main__":
-    user_id = int(input("Enter your user ID: "))
-    other_user_id = int(input("Enter the other user's ID: "))
+    user_id = input("Enter your user ID: ")
+    other_user_id = input("Enter the other user's ID: ")
 
     while True:
         action = input("Enter 'send' to send a message or 'view' to view the conversation: ").strip().lower()

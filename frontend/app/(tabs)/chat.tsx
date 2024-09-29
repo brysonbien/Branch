@@ -1,9 +1,10 @@
 import { StyleSheet, Image, Platform,TextInput, ScrollView, Text,View, TouchableOpacity, Pressable, Button} from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import {base_url} from '@/constants/apiRoute'
 
 export default function Chat() {
   const [inChat, setInChat] = useState(false)
@@ -11,14 +12,8 @@ export default function Chat() {
   const [message, setMessage] = useState("")
   const [allMessages, setAllMessages] = useState(Array)
 
-  const messages = [
-    { id: '1', text: 'Hello!', sender: 'me' },
-    { id: '2', text: 'Hi there!', sender: 'other' },
-    { id: '3', text: 'How are you doing?', sender: 'me' },
-    { id: '4', text: 'I am good, thanks!', sender: 'other' },
-    { id: '5', text: 'What about you?', sender: 'other' },
-  ];  
-
+  const user1 = 1
+  const user2 = 2
 
   const users = [{name: 'john_doe', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
@@ -35,9 +30,67 @@ export default function Chat() {
     console.log(receiver)
     setInChat(true)
   }
-  
-  const handleSend = () => {
 
+  useEffect(() => {
+    if (inChat) {
+      getConversation()
+    }
+  }, [inChat])
+  
+  const handleSend = async () => {
+    await sendMessage()
+    getConversation()
+    setMessage("")
+  }
+
+  const sendMessage = async () => {
+    try {
+      const send_message = {
+        message: message,
+        sender_id: user1,
+        receiver_id: user2
+      }
+
+      const response = await fetch(base_url + '/send_message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+        body: JSON.stringify(send_message),
+      });
+
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.json();
+      console.log('Data from Flask:', data.conversation);
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
+
+  const getConversation = async () => {
+    try {
+      const response = await fetch(base_url + '/view_conversation/' + user1 + '/' + user2, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+      });
+
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.json();
+      console.log('Data from Flask:', data.conversation);
+      setAllMessages(data.conversation)
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
   }
 
   return (
@@ -70,15 +123,18 @@ export default function Chat() {
       {inChat &&
         <>
           <ScrollView contentContainerStyle={styles.messageContainer}>
-          {messages.map((message, index) => (
+          <Pressable onPress={() => {setInChat(false)}}>
+            <Text style={styles.receiverText}>{"< " + receiver}</Text>
+          </Pressable>
+          {allMessages.map((message, index) => (
             <View style={styles.allMessageContainer}>
               <View
                 style={[
                   styles.messageSubContainer,
-                  message.sender === "me" ? styles.myMessage : styles.otherMessage,
+                  message.SenderID === user1 ? styles.myMessage : styles.otherMessage,
                 ]}
               >
-                <Text style={styles.messageText}>{message.text}</Text>
+                <Text style={styles.messageText}>{message.Message}</Text>
               </View>
             </View>
           ))}
@@ -157,6 +213,10 @@ const styles = StyleSheet.create({
   },
   userText: {
     marginLeft: 10,
+    fontSize: 20,
+  },
+  receiverText: {
+    marginLeft: 20,
     fontSize: 20,
   },
   picture: {

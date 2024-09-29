@@ -236,7 +236,7 @@ def send_message():
         return jsonify({'error': str(e)}), 500
 
 # Endpoint to view conversation between two users
-@app.route('/view_conversation/<int:user1_id>/<int:user2_id>', methods=['GET'])
+@app.route('/view_conversation/<string:user1_id>/<string:user2_id>', methods=['GET'])
 def view_conversation(user1_id, user2_id):
     try:
         # Retrieve conversation from the database

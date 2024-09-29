@@ -9,6 +9,8 @@ frontend/.key
 frontend/.mobileprovision
 frontend/.orig.*
 frontend/web-build/
+frontend/ios
+frontend/android
 
 backend/password.txt
 genAI/hf_token.txt

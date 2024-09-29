@@ -20,7 +20,32 @@ export default function HomeScreen() {
 
   const [create, setCreate] = useState(false)
   const [username, setUsername] = useMMKVString('user.name')
-  const [events, setEvents] = useState(Array)
+  const [events, setEvents] = useState([])
+
+  const getUserInfo = async () => {
+    try {
+      const userData = {
+        username: username,
+      }
+      const response = await fetch(base_url + '/init', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.json();
+      console.log('Data from Flask:', data);
+      return await getEventPages()
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }  
+  }
 
   const getEventPages = async () => {
     try {
@@ -47,9 +72,9 @@ export default function HomeScreen() {
   }
 
   useEffect(() => {
-    getEventPages()
+    getUserInfo()
     console.log(username)
-  },[]);
+  },[create]);
 
   return (
     <>

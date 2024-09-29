@@ -85,7 +85,7 @@ export default function User() {
       {!edit &&
         <ThemedView style={styles.container}>
           <ThemedView style={styles.name}>
-            <ThemedText type="title2">{name}</ThemedText>
+            <ThemedText type="title2">{username}</ThemedText>
             <View style={styles.button}>
               <Button
                 title={isUser ? "Edit" : "DM"}
