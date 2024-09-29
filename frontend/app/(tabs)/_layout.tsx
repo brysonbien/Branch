@@ -55,13 +55,6 @@ export default function TabLayout() {
           ),
         }}
       />
-      <Tabs.Screen
-        name="login"
-        options={{
-          title: 'Login',
-          tabBarIcon: () => null,
-        }}
-      />
     </Tabs>
   );
 }

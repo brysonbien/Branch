@@ -51,10 +51,7 @@ export default function User() {
 
   const getProfileInfo = async () => {
     try {
-      const userData = {
-        username: username,
-      }
-      const response = await fetch(base_url + '/profilepage', {
+      const response = await fetch(base_url + '/myprofilepage', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,4 @@
-import { StyleSheet, Image, Platform, ScrollView, Text,View, TouchableOpacity, Pressable} from 'react-native';
+import { StyleSheet, Image, Platform,TextInput, ScrollView, Text,View, TouchableOpacity, Pressable, Button} from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import React, { useState } from 'react';
@@ -7,6 +7,17 @@ import { ThemedView } from '@/components/ThemedView';
 
 export default function Chat() {
   const [inChat, setInChat] = useState(false)
+  const [receiver, setReceiver] = useState("")
+  const [message, setMessage] = useState("")
+
+  const messages = [
+    { id: '1', text: 'Hello!', sender: 'me' },
+    { id: '2', text: 'Hi there!', sender: 'other' },
+    { id: '3', text: 'How are you doing?', sender: 'me' },
+    { id: '4', text: 'I am good, thanks!', sender: 'other' },
+    { id: '5', text: 'What about you?', sender: 'other' },
+  ];  
+
 
   const users = [{name: 'john_doe', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
@@ -18,7 +29,13 @@ export default function Chat() {
     interests: ['Music', 'Gaming', 'Squashing']
   }]
 
-  const goToChat = (receiver:string) => {
+  const goToChat = (getReceiver:string) => {
+    setReceiver(getReceiver)
+    console.log(receiver)
+    setInChat(true)
+  }
+  
+  const handleSend = () => {
 
   }
 
@@ -50,7 +67,32 @@ export default function Chat() {
         </ScrollView>
       }
       {inChat &&
-      <></>
+        <>
+          <ScrollView contentContainerStyle={styles.messageContainer}>
+          {messages.map((message, index) => (
+            <View style={styles.allMessageContainer}>
+              <View
+                style={[
+                  styles.messageSubContainer,
+                  message.sender === "me" ? styles.myMessage : styles.otherMessage,
+                ]}
+              >
+                <Text style={styles.messageText}>{message.text}</Text>
+              </View>
+            </View>
+          ))}
+          </ScrollView>
+          <View style={styles.inputContainer}>
+            <TextInput
+              value={message}
+              onChangeText={setMessage}
+              placeholder="Type a message..."
+              style={styles.textInput}
+            />
+            <Button title="Send" onPress={handleSend}/>
+          </View>
+
+        </>
       }
     </>
 
@@ -58,38 +100,59 @@ export default function Chat() {
 }
 
 const styles = StyleSheet.create({
-  chatContainer: {
-    width: "100%"
+  allMessageContainer: {
+    // flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20
   },
-  filter: {
-    marginTop: 10,
-    backgroundColor: '#008000', // Pill background color
-    borderRadius: 20,          // Make it pill-shaped
-    paddingVertical: 5,       // Vertical padding
-    paddingHorizontal: 5,     // Horizontal padding
-    margin: 5,                 // Space between pills
+  messageSubContainer: {
+    padding: 10,
+    marginVertical: 5,
+    borderRadius: 10,
+    maxWidth: '120%',
+  },
+  myMessage: {
+    backgroundColor: '#DCF8C6', // Light green for your messages
+    alignSelf: 'flex-end', // Aligns to the right
+  },
+  otherMessage: {
+    backgroundColor: '#EAEAEA', // Light gray for others' messages
+    alignSelf: 'flex-start', // Aligns to the left
+  },
+  messageText: {
+    fontSize: 16,
+  },
+  inputContainer: {
+    flexDirection: 'row', 
     alignItems: 'center',
-    justifyContent: 'center',
-    width: "80%",
-    height: 30
+    padding: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+    backgroundColor: '#fff',
   },
-  filterText: {
-    color: 'white',            // Text color
-    // fontWeight: 'bold',        // Bold text
-    fontSize: 15
+  textInput: {
+    flex: 1,
+    height: 40,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 20,
+    paddingHorizontal: 10,
+    marginRight: 10,
+  },
+  chatContainer: {
   },
   photoContaienr: {
     flexDirection: 'row',
     justifyContent: "flex-start",
     alignItems:'center'
   },
-  pillContainer: {
-    paddingLeft: "5%",
-    flexDirection: 'row',
-    flexWrap: 'wrap', // Allows the items to wrap onto the next line
-    justifyContent: 'flex-start', // Align items to the start
-    width: "50%",
-    marginRight: 20
+  messageContainer: {
+    justifyContent: 'flex-start',
+    // alignItems: 'center',
+    backgroundColor: 'white',
+    paddingTop: 20,
+    height: "100%",
+    overflow: 'scroll'
   },
   userText: {
     marginLeft: 10,
@@ -106,11 +169,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     marginTop: 20,
-    height: "30%"
   },
   userAllContainer: {
-    marginLeft: 20,
-    paddingBottom: 40
+    width: "100%"
   },
   textContainer: {
     alignItems: 'center'
