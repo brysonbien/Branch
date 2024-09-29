@@ -166,8 +166,8 @@ def profilepage():
 
 
 # Get My Events Page
-@app.route('/eventspage', methods=['GET'])
-def eventpage():
+@app.route('/myeventspage', methods=['GET'])
+def myeventspage():
     """data = request.json
     username = data.get('username')
     try:
@@ -188,10 +188,32 @@ def eventpage():
 
     return Response(json.dumps(jsonArr), mimetype='application/json'), 200
 
+# Get Generic Event
+"""@app.route('/event', methods=['POST'])
+def event():
+    data = request.json
+    EventName = data.get('eventName')
+    try:
+        userID = db_reader.find_userid(username)
+    except Exception as e:
+        return jsonify({'error': 'Username Invalid!'})
+
+    user = classes.User(userID)
+    user.fill_user()
+
+    
+    return jsonify({
+    'message': 'User Found',
+    'Name' : user.Name,
+    'Image': user.Image,
+    'InterestList': user.InterestList,
+    'Location': user.Location
+}), 200
+
 # Debugging route for testing server status
 @app.route('/')
 def home():
-    return "Server is running", 200
+    return "Server is running", 200"""
 
 # Run the Flask app
 if __name__ == '__main__':
