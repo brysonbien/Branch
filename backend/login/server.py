@@ -123,7 +123,7 @@ def myprofilepage():
     'Name' : CurrentInstance.MyUser.Name,
     'Image': CurrentInstance.MyUser.Image,
     'InterestList': CurrentInstance.MyUser.InterestList,
-    'Location': CurrentInstance.MclsyUser.Location,
+    'Location': CurrentInstance.MyUser.Location,
 }), 200
 
 # Update Profile
