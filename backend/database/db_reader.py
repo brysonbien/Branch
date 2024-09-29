@@ -186,7 +186,7 @@ if __name__ == "__main__":
     newUser = User(10)
     newUser.fill_user()
     newUser.fill_user_friends()
-    print(newUser.ExtendedInterestList, newUser.InterestList)
+    print(newUser.ExtendedInterestList, newUser.InterestList, newUser.Name, newUser.Location)
     numbers = [int(x) for x in newUser.myEventIDArr]
     newEvent = Event(['coco'], numbers[0])
     fill_event(newEvent)
