@@ -50,4 +50,4 @@ The frontend is developed using React and TypeScript, providing a dynamic and ty
 The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections allowing users to branch out based on interest-pairing recommendations.
 
 ## Technologies
-Python, SQL, TypeScript, React Native, AWS, Git
+Python, SQL, TypeScript, React Native, AWS, Git, Flask
