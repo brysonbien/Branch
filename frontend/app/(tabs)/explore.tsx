@@ -26,6 +26,7 @@ export default function TabTwoScreen() {
   const [username, setUsername] = useState("")
   const [interests, setInterests] = useState([])
 
+
   const users = [{name: 'Johnson', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJtydZePQWuOVtLT7i6w_b9UpG26ZVX6JsQ&s',
     interests: ['Programming', 'Mathmatic']
   },
@@ -87,32 +88,35 @@ export default function TabTwoScreen() {
           <TouchableOpacity onPress={() => {useInterest(!interest)}} style={styles.filter}>
             <Text style={styles.filterText}>{interest ? "Without Filter" : "Filter Interests"}</Text>
           </TouchableOpacity>
-          <LineWithText text="recommended"></LineWithText>
-          <View style={styles.userAllContainer}>
-            {users.map((user, index) => (
-              <Pressable onPress={() => getUserProfile(user.name)} style={styles.userContainer}>
-                <View style={styles.photoContaienr}>
-                  <Image
-                    source={{uri: user.pic}}
-                    style={styles.picture}
-                  ></Image>
-                  <Text style={styles.userText}>{user.name}</Text>
-                </View>
-                <View style={styles.pillContainer}>
-                  {user.interests.map((interest, index) => (
-                    <TouchableOpacity style={styles.pill}>
-                      {interests.length > 0 }
-                      <Text style={styles.pillText}>{
-                        interests.length > 1 ? interests[Math.floor(Math.random() * (interest.length-1))] :
-                        interest
-                      }</Text>
-                    </TouchableOpacity>
-                  ))}
-                </View>
-              </Pressable>
-            ))}
-          </View>
-          <LineWithText text="all"></LineWithText>
+          {interest &&
+            <>
+            <LineWithText text="recommended"></LineWithText>
+            <View style={styles.userAllContainer}>
+              {users.map((user, index) => (
+                <Pressable onPress={() => getUserProfile(user.name)} style={styles.userContainer}>
+                  <View style={styles.photoContaienr}>
+                    <Image
+                      source={{uri: user.pic}}
+                      style={styles.picture}
+                    ></Image>
+                    <Text style={styles.userText}>{user.name}</Text>
+                  </View>
+                  <View style={styles.pillContainer}>
+                    {user.interests.map((interest, index) => (
+                      <TouchableOpacity style={styles.pill}>
+                        <Text style={styles.pillText}>{
+                          interests.length > 1 ? interests[Math.floor(Math.random() * (interests.length-1))] :
+                          interest
+                        }</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                </Pressable>
+              ))}
+            </View>
+            <LineWithText text="all"></LineWithText>
+            </>
+          }
           <View style={styles.userAllContainer}>
             {users2.map((user, index) => (
               <View style={styles.userContainer}>
@@ -210,7 +214,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'white',
     paddingTop: 20,
-    paddingBottom: "50%"
+    paddingBottom: "120%"
   },
   pill: {
     backgroundColor: '#008000', // Pill background color

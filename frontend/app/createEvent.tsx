@@ -9,11 +9,15 @@ import {base_url} from '@/constants/apiRoute'
 
 export type CreateEventProps = {
   handleCreate: (...args: any[]) => void;
+  setEventName: (...args: any[]) => void;
+  setDate: (...args: any[]) => void;
 };
 
 
 export default function CreateEvent({
-  handleCreate
+  handleCreate,
+  setEventName,
+  setDate
 }: CreateEventProps) {
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
@@ -21,64 +25,66 @@ export default function CreateEvent({
   const [description, setDescription] = useState("")
   const [username, setUsername] = useState("")
 
-  const getUsername = async () => {
-    try {
-      const response = await fetch(base_url + '/getusername', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': base_url
-        },
-      });
+  // const getUsername = async () => {
+  //   try {
+  //     const response = await fetch(base_url + '/getusername', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': base_url
+  //       },
+  //     });
 
-      if (!response.ok) {
-        return false;
-      }
-      const data = await response.text();
-      setUsername(data)
-      console.log('Data from Flask:', data);
-      return true;
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-    }
-  }
+  //     if (!response.ok) {
+  //       return false;
+  //     }
+  //     const data = await response.text();
+  //     setUsername(data)
+  //     console.log('Data from Flask:', data);
+  //     return true;
+  //   } catch (error) {
+  //     console.error('There was a problem with the fetch operation:', error);
+  //   }
+  // }
 
-  const createEvent = async () => {
-    try {
-      const eventData = {
-        username: "rebelxhawk",
-        EventName: name,
-        Location: location,
-        EventDate: "2024-" + time + " 10:45:00",
-        EventDescripton: description
-      }
-      console.log(eventData)
-      const response = await fetch(base_url + '/createevent', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': base_url
-        },
-        body: JSON.stringify(eventData),
-      });
+  // const createEvent = async () => {
+  //   try {
+  //     const eventData = {
+  //       username: "rebelxhawk",
+  //       EventName: name,
+  //       Location: location,
+  //       EventDate: "2024-" + time + " 10:45:00",
+  //       EventDescripton: description
+  //     }
+  //     console.log(eventData)
+  //     const response = await fetch(base_url + '/createevent', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': base_url
+  //       },
+  //       body: JSON.stringify(eventData),
+  //     });
   
-      if (!response.ok) {
-        return false;
-      }
+  //     if (!response.ok) {
+  //       return false;
+  //     }
   
-      const data = await response.json();
-      console.log('Data from Flask:', data);
-      return true;
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-    }
-  }
+  //     const data = await response.json();
+  //     console.log('Data from Flask:', data);
+  //     return true;
+  //   } catch (error) {
+  //     console.error('There was a problem with the fetch operation:', error);
+  //   }
+  // }
 
   const handleSave = async () => {
     // if (await getUsername()) {
-      if (await createEvent()) {
-        handleCreate()
-      }
+      // if (await createEvent()) {
+      setEventName(name)
+      setDate(time)
+      handleCreate()
+      // }
     // }
   }
 
