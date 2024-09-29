@@ -153,5 +153,14 @@ if __name__ == "__main__":
     update_user(tempuser)
     print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location, tempuser.Name)
     #print(tempuser.myEventIDArr)"""
+<<<<<<< HEAD
 
 
+=======
+    ppl = ['adityasht', 'elliotwillner', 'thomasxie2']
+    newUser = User(83)
+    fill_user(newUser)
+    newUser.Name = 'Aditya S'
+    newUser.myEventIDArr = ['1','2']
+    update_user(newUser)
+>>>>>>> ab45e64 (new database)
