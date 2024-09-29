@@ -104,38 +104,10 @@ def fill_user(UserOBJ):
         if connection:
             connection.close()
 
-def fill_event(EventOBJ):
-    Eventid = EventOBJ.EventID
-    try:
-        connection = get_connection()
-        with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")
-            cursor.execute("""
-                SELECT `EventName`, `EventDate`, `EventDescription`, `Location`,`Tags`
-                FROM `Events` 
-                WHERE `EventID` = %s
-                """ % Eventid)
-            result = cursor.fetchone()
-            
-            if result:
-                EventOBJ.EventName = result['EventName']
-                EventOBJ.EventDescription = result['EventDescription']
-                EventOBJ.EventDate = result['EventDate']
-                EventOBJ.Tags = parse_json_list(result['Tags'])
-                EventOBJ.Location = result['Location']
-                print(f"Event data retrieved successfully for UserID: {Eventid}")
-            else:
-                print(f"No event found with EventID: {Eventid}")
-
-    except pymysql.MySQLError as e:
-        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
-        return []
-    finally:
-        if connection:
-            connection.close()
-
 # Function to add a user to the Users table
 def fill_user_friends(UserOBJ):
+    UserOBJ.UserFriendsList =[]
+    return
     FriendIDs = []
     userid = UserOBJ.UserID
     try:
@@ -157,12 +129,13 @@ def fill_user_friends(UserOBJ):
     finally:
         if connection:
             connection.close()
-    
-    for n in result:
+    print(result[0]['mutuals'], 'result <<<<<<<<<<<<<')
+    for n in result[0]['mutuals'].split(','):
         try:
-            text = n['mutuals']
-            text = text[1:-1]
-            print('text', '<<<finduseridinput')
+            str(n).strip('[')
+            str(n).strip('[')
+            text = n
+            print(text, '<<<finduseridinput')
             FriendIDs.append(find_userid(text))
         except pymysql.MySQLError as e:
             continue
@@ -209,13 +182,12 @@ def fill_event(EventOBJ):
 
 if __name__ == "__main__":
     event = Event([], 16)
-    fill_event(event)
-    print(event.EventDescription)
     # Add a user (example)
-    #newUser = User(83)
-    #newUser.fill_user()
-    #newUser.fill_user_friends()
-    #numbers = [int(x) for x in newUser.myEventIDArr]
-    #newEvent = Event(['coco'], numbers[0])
-    #fill_event(newEvent)
-    #print(newEvent.EventName, newEvent.EventDate, newEvent.EventDescription, newEvent.KAttendeeArr)
+    newUser = User(10)
+    newUser.fill_user()
+    newUser.fill_user_friends()
+    print(newUser.ExtendedInterestList, newUser.InterestList)
+    numbers = [int(x) for x in newUser.myEventIDArr]
+    newEvent = Event(['coco'], numbers[0])
+    fill_event(newEvent)
+    print(newEvent.EventName, newEvent.EventDate, newEvent.EventDescription, newEvent.KAttendeeArr)
