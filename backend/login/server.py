@@ -179,7 +179,6 @@ def myeventspage():
     for event in CurrentInstance.EventList:
         jsonArr.append(jsonify({
         'EventName' : event.EventName,
-        'Image': event.Image,
         'EventDate': event.EventDate,
         'Location': event.Location,
         'Known Attendees' : event.KAttendeeArr
