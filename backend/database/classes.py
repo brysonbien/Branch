@@ -28,7 +28,7 @@ class User:
         db_reader.fill_user_friends(self)
         
 class Event:
-    def __init__(self, KAttendeeArr, EventID = None):
+    def __init__(self, KAttendeeArr, EventID=None):
         self.EventID = EventID
         self.KAttendeeArr = KAttendeeArr
         #API Call for the rest of the relavent information
