@@ -28,20 +28,20 @@ export default function TabTwoScreen() {
     interests: ['Programming', 'Mathmatic']
   },
   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    interests: ['Guitar', 'Gaming']
+    interests: ['Hiking', 'Reading']
   },
   {name: 'Jenny', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrHqWRNVBgP3y8V5VGudA0f5UmnisaLBGpA&s',
     interests: ['Music', 'Gaming', 'Moview']
   }]
 
-  const users2 = [{name: 'john_doe', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVoa9cpYPXd8OR8J9Zz8vw4Kj421p9GTikrg&s',
-    interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
+  const users2 = [{name: 'Frank', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVoa9cpYPXd8OR8J9Zz8vw4Kj421p9GTikrg&s',
+    interests: ['Chinese', 'Thinking', 'Japanese', 'Reading']
   },
-  {name: 'Tony', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9mjn-XEoZoql762QQVg4agiWEFZcqs94tHg&s',
-    interests: ['Guitar', 'Gaming', 'Jerking']
+  {name: 'Jingyuan', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9mjn-XEoZoql762QQVg4agiWEFZcqs94tHg&s',
+    interests: ['Travel', 'Gaming', 'Sleeping']
   },
-  {name: 'Darius', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    interests: ['Music', 'Gaming', 'Squashing']
+  {name: 'Danheng', pic: 'https://gw.alicdn.com/imgextra/i4/2215735941221/O1CN01KYb5fV1KtGV247rjb_!!2215735941221.jpg_300x300Q75.jpg_.webp',
+    interests: ['Tiktok', 'Vlog', 'Card']
   }]
 
   const getUserProfile = (nameSet:string) => {
