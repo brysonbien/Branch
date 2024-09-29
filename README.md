@@ -1,6 +1,6 @@
 # Branch
 
-![image](images/branch.jpg)
+![image](images/branch.png)
 
 ##### Bryson Alexander Bien - brysonbien@gmail.com - Backend
 ##### Elliot Pal Willner - elliotwillner@gatech.edu - Database & AI
