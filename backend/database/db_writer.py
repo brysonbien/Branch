@@ -45,6 +45,8 @@ def add_user(username, password_hash, mutuals):
             `Location` = VALUES(`Location`),
             `mutuals` = VALUES(`mutuals`);
             `EventsList` = VALUES(`EventsList`)
+            `Extended Interests` = VALUES(`Extended Interests`)
+            `Name` = VALUES(`Name`)
             """
             cursor.execute(sql, (username, password_hash, mutuals))
         connection.commit()

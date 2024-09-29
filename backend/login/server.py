@@ -233,8 +233,8 @@ def getusername():
     
 
 # Get Generic Event
-@app.route('/event', methods=['POST'])
-def event():
+@app.route('/getevent', methods=['POST'])
+def getevent():
     data = request.json
     EventID = data.get('eventID')
     
