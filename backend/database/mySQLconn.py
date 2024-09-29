@@ -10,16 +10,16 @@ DB_PASSWORD = get_db_password()
 
 timeout = 10
 connection = pymysql.connect(
-charset="utf8mb4",
-connect_timeout=timeout,
-cursorclass=pymysql.cursors.DictCursor,
-db="defaultdb",
-host="gatech-hackathon-2024-branch-hackgt.h.aivencloud.com",
-password=DB_PASSWORD,
-read_timeout=timeout,
-port=10703,
-user="avnadmin",
-write_timeout=timeout,
+  charset="utf8mb4",
+  connect_timeout=timeout,
+  cursorclass=pymysql.cursors.DictCursor,
+  db="defaultdb",
+  host="mysql-223d04d7-branch-hackathon.h.aivencloud.com",
+  password=DB_PASSWORD,
+  read_timeout=timeout,
+  port=14022,
+  user="avnadmin",
+  write_timeout=timeout,
 )
 
 try:
@@ -42,9 +42,6 @@ try:
             `InstagramToken` VARCHAR(255),
             `PasswordHash` VARCHAR(255) NOT NULL,
             `Location` VARCHAR(50),
-            `mutuals` JSON,
-            `ExtendedInterestList` JSON,
-            `EventsList` JSON,
             `CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         """
@@ -60,12 +57,38 @@ try:
             `EventDate` DATETIME,
             `Location` VARCHAR(255),
             `Tags` JSON,
-            `Attendees` JSON,
             `CreatedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         """
     )
 
+    # Create EventAttendees table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS `EventAttendees` (
+            `EventID` INT,
+            `UserID` INT,
+            `AttendedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`EventID`, `UserID`),
+            FOREIGN KEY (`EventID`) REFERENCES `Events`(`EventID`) ON DELETE CASCADE,
+            FOREIGN KEY (`UserID`) REFERENCES `Users`(`UserID`) ON DELETE CASCADE
+        );
+        """
+    )
+
+    # Create UserFriends table
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS `UserFriends` (
+            `UserID` INT,
+            `FriendID` INT,
+            `AddedAt` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (`UserID`, `FriendID`),
+            FOREIGN KEY (`UserID`) REFERENCES `Users`(`UserID`) ON DELETE CASCADE,
+            FOREIGN KEY (`FriendID`) REFERENCES `Users`(`UserID`) ON DELETE CASCADE
+        );
+        """
+    )
     print(cursor.fetchall())
 finally:
     connection.close()

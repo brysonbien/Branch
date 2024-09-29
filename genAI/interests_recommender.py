@@ -72,6 +72,6 @@ def find_tags(eventname, eventdesc):
 
 
 if __name__ == "__main__":
-    interests = ["music", "coding", "math", "hiking", 'reading']
+    interests = ["machine learning", "data science", "python"]
     get_interests_recommender(interests)
     find_tags("Hackathon", "A coding competition for developers.")
