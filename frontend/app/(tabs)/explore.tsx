@@ -3,7 +3,7 @@ import { StyleSheet, Image, Platform, ScrollView, Text,View, TouchableOpacity, P
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
-
+import UserProfile from '@/components/UserProfile'
 
 interface LineWithTextProps {
   text: string;
@@ -21,68 +21,85 @@ const LineWithText: React.FC<LineWithTextProps> = ({text}) => {
 
 export default function TabTwoScreen() {
   const [interest, useInterest] = useState(false)
+  const [isProfile, setIsProfile] = useState(false)
+  const [username, setUsername] = useState("")
 
-  const users = [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  const users = [{name: 'john_doe', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
   },
   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    interests: ['Guitar', 'Gaming', 'Hiking']
+    interests: ['Guitar', 'Gaming', 'Jerking']
   },
   {name: 'Darius', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Squashing']
   }]
+
+  const getUserProfile = (nameSet:string) => {
+    setUsername(nameSet)
+    setIsProfile(true)
+  }
   
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.textContainer}>
-        <Text style={styles.mainText}>Explore</Text>
-      </View>
-      <TouchableOpacity onPress={() => {useInterest(!interest)}} style={styles.filter}>
-        <Text style={styles.filterText}>{interest ? "Without Filter" : "Filter Interests"}</Text>
-      </TouchableOpacity>
-      <LineWithText text="recommended"></LineWithText>
-      <View style={styles.userAllContainer}>
-        {users.map((user, index) => (
-          <Pressable style={styles.userContainer}>
-            <View style={styles.photoContaienr}>
-              <Image
-                source={{uri: user.pic}}
-                style={styles.picture}
-              ></Image>
-              <Text style={styles.userText}>{user.name}</Text>
-            </View>
-            <View style={styles.pillContainer}>
-              {user.interests.map((interest, index) => (
-                <TouchableOpacity style={styles.pill}>
-                  <Text style={styles.pillText}>{interest}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
-          </Pressable>
-        ))}
-      </View>
-      <LineWithText text="all"></LineWithText>
-      <View style={styles.userAllContainer}>
-        {users.map((user, index) => (
-          <View style={styles.userContainer}>
-            <View style={styles.photoContaienr}>
-              <Image
-                source={{uri: user.pic}}
-                style={styles.picture}
-              ></Image>
-              <Text style={styles.userText}>{user.name}</Text>
-            </View>
-            <View style={styles.pillContainer}>
-              {user.interests.map((interest, index) => (
-                <TouchableOpacity style={styles.pill}>
-                  <Text style={styles.pillText}>{interest}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+    <>
+      {!isProfile &&
+        <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.textContainer}>
+            <Text style={styles.mainText}>Explore</Text>
           </View>
-        ))}
-      </View>
-    </ScrollView>
+          <TouchableOpacity onPress={() => {useInterest(!interest)}} style={styles.filter}>
+            <Text style={styles.filterText}>{interest ? "Without Filter" : "Filter Interests"}</Text>
+          </TouchableOpacity>
+          <LineWithText text="recommended"></LineWithText>
+          <View style={styles.userAllContainer}>
+            {users.map((user, index) => (
+              <Pressable onPress={() => getUserProfile(user.name)} style={styles.userContainer}>
+                <View style={styles.photoContaienr}>
+                  <Image
+                    source={{uri: user.pic}}
+                    style={styles.picture}
+                  ></Image>
+                  <Text style={styles.userText}>{user.name}</Text>
+                </View>
+                <View style={styles.pillContainer}>
+                  {user.interests.map((interest, index) => (
+                    <TouchableOpacity style={styles.pill}>
+                      <Text style={styles.pillText}>{interest}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </Pressable>
+            ))}
+          </View>
+          <LineWithText text="all"></LineWithText>
+          <View style={styles.userAllContainer}>
+            {users.map((user, index) => (
+              <View style={styles.userContainer}>
+                <View style={styles.photoContaienr}>
+                  <Image
+                    source={{uri: user.pic}}
+                    style={styles.picture}
+                  ></Image>
+                  <Text style={styles.userText}>{user.name}</Text>
+                </View>
+                <View style={styles.pillContainer}>
+                  {user.interests.map((interest, index) => (
+                    <TouchableOpacity style={styles.pill}>
+                      <Text style={styles.pillText}>{interest}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      }
+      {isProfile &&
+        <UserProfile
+          username = {username}
+          back={() => {setIsProfile(false)}}
+        ></UserProfile>
+      }
+    </>
   );
 }
 

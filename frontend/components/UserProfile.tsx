@@ -3,21 +3,22 @@ import { Image, Text, View, StyleSheet, Platform, TouchableOpacity, Button} from
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import EventView from '@/components/EventView';
-import UserEdit from '../userEdit';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {base_url} from '@/constants/apiRoute'
-import { MMKV, useMMKVString} from 'react-native-mmkv'
+import AntDesign from '@expo/vector-icons/AntDesign';
 
+export type UserProfileProp = {
+  username: string;
+  back: (...args: any[]) => void;
+};
 
-export default function User() {
-  const [edit, setEdit] = useState(false)
-  const [username, setUsername] = useMMKVString('user.name')
-  const [location, setLocation] = useState('loading...')
+export default function UserProfile({
+  username,
+  back
+}: UserProfileProp) {
+  const [name, setName] = useState("loading...")
+  const [location, setLocation] = useState("loading...")
   const [interests, setInterests] = useState(Array<string>)
-
-  const handleEdit = () => {
-    setEdit(true)
-  }
 
   useEffect(() => {
     getUserInfo()
@@ -41,17 +42,15 @@ export default function User() {
         return false;
       }
       const data = await response.json();
+      setName(data.Location as string)
       setLocation(data.Location as string)
       setInterests(data.InterestList as Array<string>)
       console.log('Data from Flask:', data);
       return true;
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);
-    }  
-  }
-
-  const name = username as string;
-  const isUser = true
+    }
+  }  
   const eventname = "Taloy Swift Concert"
   const eventdate = "2024-07-24"
   const profileInfo = [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
@@ -60,17 +59,13 @@ export default function User() {
 
   return (
     <>
-      {!edit &&
+      {
         <ThemedView style={styles.container}>
+          <TouchableOpacity style={styles.backButton} onPress={back}>
+            <AntDesign name="back" size={20} color="white" />
+          </TouchableOpacity>
           <ThemedView style={styles.name}>
             <ThemedText type="title2">{name}</ThemedText>
-            <View style={styles.button}>
-              <Button
-                title={isUser ? "Edit" : "DM"}
-                onPress={handleEdit} 
-                color="#008000" // Customize the button color (Android only)
-              />
-            </View>
           </ThemedView>
           <ThemedView style={styles.profilePicContainer}>
             <Image
@@ -93,19 +88,21 @@ export default function User() {
           </ThemedView>
         </ThemedView> 
       }
-      {edit &&
-        <UserEdit
-          Username={name}
-          Location={location}
-          Interest={interests}
-          handleEdit={()=>{setEdit(false)}}
-        />
-      }
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  backButton: {
+    width: 50,
+    height: 35,
+    backgroundColor: '#008000',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    marginTop: 32,
+    marginLeft: 32
+  },
   container: {
     flex: 1,
     overflow: 'scroll',
