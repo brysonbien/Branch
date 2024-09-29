@@ -17,18 +17,18 @@ DB_PASSWORD = get_db_password()
 # Function to get a database connection
 def get_connection():
     """Create a new database connection."""
-    timeout = 10  # Define connection parameters
-    return pymysql.connect(
-        charset="utf8mb4",
-        connect_timeout=timeout,
-        cursorclass=pymysql.cursors.DictCursor,
-        db="defaultdb",
-        host="mysql-223d04d7-branch-hackathon.h.aivencloud.com",
-        password=DB_PASSWORD,
-        read_timeout=timeout,
-        port=14022,
-        user="avnadmin",
-        write_timeout=timeout,
+    timeout = 10
+    connection = pymysql.connect(
+    charset="utf8mb4",
+    connect_timeout=timeout,
+    cursorclass=pymysql.cursors.DictCursor,
+    db="defaultdb",
+    host="gatech-hackathon-2024-branch-hackgt.h.aivencloud.com",
+    password=DB_PASSWORD,
+    read_timeout=timeout,
+    port=10703,
+    user="avnadmin",
+    write_timeout=timeout,
     )
 
 # Function to add a user to the Users table
@@ -143,3 +143,9 @@ if __name__ == "__main__":
     update_user(tempuser)
     print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location, tempuser.Name)
     #print(tempuser.myEventIDArr)"""
+    ppl = ['adityasht', 'elliotwillner', 'thomasxie2']
+    newUser = User(83)
+    fill_user(newUser)
+    newUser.Name = 'Aditya S'
+    newUser.myEventIDArr = ['1','2']
+    update_user(newUser)
