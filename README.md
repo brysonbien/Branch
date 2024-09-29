@@ -35,7 +35,7 @@ Users will sign in with there Instagram account, select their location, interest
 The backend is built using Python 3, providing a robust and flexible environment for handling all server-side functionalities, such as authentication, messaging, and AI processing.
 
 ### Database
-The database uses SQL for structured data management and is accessed through AWS, ensuring reliable storage and scalability. It holds data related to users, messages, and any other necessary app entities.
+The cloud database uses SQL for structured data management and is accessed through AWS, ensuring reliable storage and scalability. It holds data related to users, messages, and any other necessary app entities.
 
 ### Login
 Login functionality is implemented using Flask to create RESTful client and server applications, with the Instagrapi library used to manage and authenticate user accounts, allowing seamless integration with Instagram services.
