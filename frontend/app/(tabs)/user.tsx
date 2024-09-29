@@ -6,48 +6,48 @@ import EventView from '@/components/EventView';
 import UserEdit from '../userEdit';
 import React, { useState, useEffect } from 'react';
 import {base_url} from '@/constants/apiRoute'
-import { MMKV, useMMKVString} from 'react-native-mmkv'
+// import { MMKV, useMMKVString} from 'react-native-mmkv'
 
 
 export default function User() {
-  const [edit, setEdit] = useState(false)
-  const [username, setUsername] = useMMKVString('user.name')
+  const [edit, setEdit] = useState(true)
+  // const [username, setUsername] = useMMKVString('user.name')
   const [location, setLocation] = useState('loading...')
   const [interests, setInterests] = useState(Array<string>)
-  const [name, setName] = useState(username as string)
+  const [name, setName] = useState('loading...')
 
   const handleEdit = () => {
     setEdit(true)
   }
 
   useEffect(() => {
-    getUserInfo()
+    getProfileInfo()
   }, [edit])
 
-  const getUserInfo = async () => {
-    try {
-      const userData = {
-        username: username,
-      }
-      const response = await fetch(base_url + '/init', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': base_url
-        },
-        body: JSON.stringify(userData),
-      });
+  // const getUserInfo = async () => {
+  //   try {
+  //     const userData = {
+  //       username: username,
+  //     }
+  //     const response = await fetch(base_url + '/init', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Origin': base_url
+  //       },
+  //       body: JSON.stringify(userData),
+  //     });
   
-      if (!response.ok) {
-        return false;
-      }
-      const data = await response.json();
-      console.log('Data from Flask:', data);
-      return await getProfileInfo()
-    } catch (error) {
-      console.error('There was a problem with the fetch operation:', error);
-    }  
-  }
+  //     if (!response.ok) {
+  //       return false;
+  //     }
+  //     const data = await response.json();
+  //     console.log('Data from Flask:', data);
+  //     return await getProfileInfo()
+  //   } catch (error) {
+  //     console.error('There was a problem with the fetch operation:', error);
+  //   }  
+  // }
 
   const getProfileInfo = async () => {
     try {
@@ -85,7 +85,7 @@ export default function User() {
       {!edit &&
         <ThemedView style={styles.container}>
           <ThemedView style={styles.name}>
-            <ThemedText type="title2">{username}</ThemedText>
+            <ThemedText type="title2">{name}</ThemedText>
             <View style={styles.button}>
               <Button
                 title={isUser ? "Edit" : "DM"}

@@ -5,8 +5,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import {base_url} from '@/constants/apiRoute'
-import { MMKV } from 'react-native-mmkv'
-import {storage} from '@/constants/mmkv'
+// import { MMKV } from 'react-native-mmkv'
+// import {storage} from '@/constants/mmkv'
 
 
 export default function HomeScreen() {
@@ -20,9 +20,35 @@ export default function HomeScreen() {
 
   const handleLogin = async () => {
     if (await instaLogin()) {
-      storage.set('user.name', username)
+      getUserInfo()
+      // storage.set('user.name', username)
       window.location.href = '/home'
     }
+  }
+
+  const getUserInfo = async () => {
+    try {
+      const userData = {
+        username: username,
+      }
+      const response = await fetch(base_url + '/init', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+        body: JSON.stringify(userData),
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.json();
+      console.log('Data from Flask:', data);
+      return true
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }  
   }
 
   const instaLogin = async () => {

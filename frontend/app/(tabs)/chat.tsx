@@ -11,22 +11,22 @@ export default function Chat() {
   const [receiver, setReceiver] = useState("")
   const [message, setMessage] = useState("")
   const [allMessages, setAllMessages] = useState(Array)
+  const [user2, setUser2] = useState(2)
 
   const user1 = 1
-  const user2 = 2
 
-  const users = [{name: 'john_doe', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  const users = [{name: 'John Doe',id: 10, pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
   },
-  {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  {name: 'Tony',id: 12, pic: 'https://img.k2r2.com/uploads/frombd/0/253/3082275325/3261503094.jpg!190pic',
     interests: ['Guitar', 'Gaming', 'Jerking']
   },
-  {name: 'Darius', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+  {name: 'Darius', id: 15, pic: 'https://patchwiki.biligame.com/images/sr/4/45/635ho4kx5ge6epx3bkn6pzp3mbsvezk.png',
     interests: ['Music', 'Gaming', 'Squashing']
   }]
 
-  const goToChat = (getReceiver:string) => {
-    setReceiver(getReceiver)
+  const goToChat = (id:number) => {
+    setUser2(id)
     console.log(receiver)
     setInChat(true)
   }
@@ -106,7 +106,7 @@ export default function Chat() {
                 <View style={styles.lineContainer}>
                   <View style={styles.line} />
                 </View>
-                <Pressable onPress={() => goToChat(user.name)} style={styles.userContainer}>
+                <Pressable onPress={() => goToChat(user.id)} style={styles.userContainer}>
                   <View style={styles.photoContaienr}>
                     <Image
                       source={{uri: user.pic}}

@@ -188,7 +188,6 @@ def myeventspage():
         'Known Attendees' : event.KAttendeeArr
         }))
 
-
     return Response(json.dumps(jsonArr), mimetype='application/json'), 200
 
 # Get Generic Event
@@ -226,7 +225,8 @@ def send_message():
     sender_id = data.get('sender_id')
     receiver_id = data.get('receiver_id')
     message = data.get('message')
-    
+    print(sender_id)
+    print(receiver_id)
     try:
         # Write the message to the database
         dm_handler.add_message(sender_id, receiver_id, message)
