@@ -10,6 +10,10 @@ def testInit(username):
     }
     response = requests.post(login_url, json=data)
 
+def testMyProfile():
+    login_url = f"{base_url}/myprofilepage"
+    response = requests.post(login_url)
+
 
 # Function to log in to the Flask app
 def login(username, password):
@@ -33,3 +37,4 @@ if __name__ == "__main__":
 
     # Log in
     testInit(username)
+    testMyProfile()

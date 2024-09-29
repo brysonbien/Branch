@@ -1,12 +1,11 @@
 # Branch
 
-![image](images/hackgt.jpeg)
+<img src="images/branch.png" width="500">
 
-
-##### Bryson Alexander Bien - brysonbien@gmail.com
-##### Elliot Pal Willner - elliotwillner@gatech.edu
-##### Aditya Singh - adityasht@gmail.com
-##### Feiyang Xie - fxie64@gatech.edu
+##### Bryson Bien - brysonbien@gmail.com - Backend
+##### Elliot Willner - elliotwillner@gatech.edu - Database & AI
+##### Aditya Singh - adityasht@gmail.com - Backend
+##### Feiyang Xie - fxie64@gatech.edu - Frontend
 
 ### Branch is an interactive iOS application meant to improve human relationships and develop habits associated with positive mental health.
 
@@ -16,25 +15,36 @@ The Harvard Study of Adult Development, one of the longest studies on human happ
 
 Branch enables users to make plans with real people, in real life, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
 
-Using numerous technologies, such as:
+## Artificial Intelligence
+Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles based on shared interests using machine learning models to make connections.
+- **Better Connections**: By matching users based on shared interests, the platform encourages more meaningful connections.
+- **Improved Discoverability**: Users can find like-minded people more easily, fostering stronger communities within the app.
+## Features
+- **Event Planning**: Share upcoming events with those around you and branch out.
+- **Who's In Town**: Know which mutuals are in your area, see how long they’ll be around, and arrange meetups.
+- **Direct Messaging**: Chat with friends one-on-one or create group chats for planning and catching up.
+- **Who's In Town**: Know who’s in your area, see how long they’ll be around, and arrange meetups.
+- **Mental Health and Inclusion**: Promote genuine connections, foster a supportive community, and tackle mental health issues through an inclusive platform.
 
-- [x] Generative AI
-- [x] AWS Cloud Database
-- [x] React Front End
+## How the App Works
 
-Branch uses state-of-the-art methodology towards tackling a necessary challenge in today's world.
+Users will sign in with there Instagram account, select their location, interests, and profile photo. Then they ca n start branching out to those around them, with similar interests, and join others or invite people to plans.
 
+### Backend
+The backend is built using Python 3, providing a robust and flexible environment for handling all server-side functionalities, such as authentication, messaging, and AI processing.
 
-### Our Methodology
+### Database
+The database uses SQL for structured data management and is accessed through AWS, ensuring reliable storage and scalability. It holds data related to users, messages, and any other necessary app entities.
 
-On Friday night, we discussed ideas and came to a conclusion on what we would be attempting during the hackathon. We also assigned roles:
+### Login
+Login functionality is implemented using Flask to create RESTful client and server applications, with the Instagrapi library used to manage and authenticate user accounts, allowing seamless integration with Instagram services.
 
-- Feiyang: Front End
-- Elliot: Database & AI
-- Aditya: Back End
-- Bryson: Back End
+### Messaging
+Messaging between users is managed through dedicated client-server architecture and handler scripts, enabling real-time communication and interactions within the app.
 
-We were also able to develop our first test database, hosted locally in a MySQL server instance, and wrote the beginning of both the front end and back end code.
+### Frontend
+The frontend is developed using React and TypeScript, providing a dynamic and type-safe environment for building user interfaces and components. This allows for quick iteration and ensures a responsive user experience across all pages and features.
 
-On Saturday, we met bright and early to continue work on our project. We were able to successfuly employ use of a cloud database, develop generative AI functionality within the app, establish API linkage with Instagram for follower/following scraping, fully develop front end design, and build out the server and APIs for the back end's interaction with the front end.
+### Generative AI
+The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections by prioritizing relevant branches in the app's nearby search based on interest recommendations.
 

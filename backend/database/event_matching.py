@@ -1,30 +1,50 @@
 from classes import *
 
+# Function to calculate relevance score based on string-based interests
 def calculate_relevance_score(event, interests):
     score = 0
     for interest in interests:
-        if interest.keyword in event.description:
+        if interest in event.EventDescription:
             score += 1
-        if interest.category == event.category:
+        if interest in event.EventTags:
             score += 2
     return score
 
+# Function to sort events by their relevance
 def sort_events_by_relevance(events, interests):
     events_with_scores = [(event, calculate_relevance_score(event, interests)) for event in events]
     sorted_events = sorted(events_with_scores, key=lambda x: x[1], reverse=True)
     return [event for event, score in sorted_events]
 
+
 # Example usage
 if __name__ == "__main__":
-    # Assuming you have a list of events and interests
+    # Create an instance of the application with a user ID
     app = AppInstance(1)
     
-    events = app.EventList
-    interests = app.MyUser.InterestList + app.MyUser.ExtendedInterestList
-
-    print(events)
-    print(interests)
-
-    sorted_events = sort_events_by_relevance(events, interests)
+    # Mock user interests as a list of strings
+    app.MyUser.InterestList = ["programming", "tech", "AI"]
+    
+    # Mock events
+    app.EventList = [
+        Event(EventID=1, KAttendeeArr=[]),
+        Event(EventID=2, KAttendeeArr=[]),
+        Event(EventID=3, KAttendeeArr=[])
+    ]
+    
+    # Adding descriptions and categories to mock events
+    app.EventList[0].EventDescription = "A night of music and fun"
+    app.EventList[0].EventTags = ["entertainment"]
+    
+    app.EventList[1].EventDescription = "An exhibition of modern art"
+    app.EventList[1].EventTags = ["culture"]
+    
+    app.EventList[2].EventDescription = "Tech conference with latest advancements in AI"
+    app.EventList[2].EventTags = ["science"]
+    
+    # Sorting events based on relevance
+    sorted_events = sort_events_by_relevance(app.EventList, app.MyUser.InterestList)
+    
+    # Displaying sorted events
     for event in sorted_events:
-        print(event)
+        print(f"Event ID: {event.EventID}, Description: {event.EventDescription}, Tags: {event.EventTags}")
