@@ -15,7 +15,7 @@ The Harvard Study of Adult Development, one of the longest studies on human happ
 
 Branch enables users to make plans with real people, in real life, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
 
-## Generative AI
+## Artificial Intelligence
 Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles based on shared interests using machine learning models to make connections.
 - **Better Connections**: By matching users based on shared interests, the platform encourages more meaningful connections.
 - **Improved Discoverability**: Users can find like-minded people more easily, fostering stronger communities within the app.
