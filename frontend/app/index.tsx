@@ -5,9 +5,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import {base_url} from '@/constants/apiRoute'
-// import { MMKV } from 'react-native-mmkv'
-// import {storage} from '@/constants/mmkv'
-
+import { MMKV } from 'react-native-mmkv'
+const storage = new MMKV()
 
 export default function HomeScreen() {
   const [login, setLogin] = useState(false)
@@ -24,6 +23,7 @@ export default function HomeScreen() {
       // storage.set('user.name', username)
       window.location.href = '/user'
     }
+    // window.location.href = '/user'
   }
 
   const getUserInfo = async () => {
@@ -73,6 +73,7 @@ export default function HomeScreen() {
   
       const data = await response.json();
       console.log('Data from Flask:', data);
+      storage.set("mutuals", data.mutuals)
       return true;
     } catch (error) {
       console.error('There was a problem with the fetch operation:', error);

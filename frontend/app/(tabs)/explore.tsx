@@ -24,7 +24,7 @@ export default function TabTwoScreen() {
   const [isProfile, setIsProfile] = useState(false)
   const [username, setUsername] = useState("")
 
-  const users = [{name: 'John', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJtydZePQWuOVtLT7i6w_b9UpG26ZVX6JsQ&s',
+  const users = [{name: 'Johnson', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJtydZePQWuOVtLT7i6w_b9UpG26ZVX6JsQ&s',
     interests: ['Programming', 'Mathmatic']
   },
   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',

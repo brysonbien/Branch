@@ -62,7 +62,7 @@ export default function EventView({
         {expand && (
           <View style={styles.pictureContainerExpand}>
             {ProfileInfo.map((content, index) => (
-              <View style={styles.picText} key={index}>
+              <View style={styles.picText} key={"profile" + index}>
                 <Image
                   source={{uri: content.pic}}
                   style={styles.picture}

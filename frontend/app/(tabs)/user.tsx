@@ -110,9 +110,9 @@ export default function User() {
               </TouchableOpacity>
             ))}
           </ThemedView>
-          <ThemedView style={styles.location}>
+          {/* <ThemedView style={styles.location}>
             <EventView EventName={eventname} EventDate={eventdate} ProfileInfo={profileInfo}></EventView>
-          </ThemedView>
+          </ThemedView> */}
         </ThemedView> 
       }
       {edit &&
