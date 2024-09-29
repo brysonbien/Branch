@@ -39,7 +39,7 @@ class Event:
         self.EventTags = []
 
     def fill_event(self):
-        db_reader.fill_user(self)
+        db_reader.fill_event(self)
 
 
 

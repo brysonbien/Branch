@@ -103,23 +103,23 @@ def fill_user(UserOBJ):
             connection.close()
 
 def fill_event(EventOBJ):
-    Eventid = EventOBJ.UserID
+    Eventid = EventOBJ.EventID
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            SELECT `Name`, `Description`, `Date`, `Location`,`Tags`
-            FROM `EventsList` 
+            SELECT `EventName`, `EventDescription`, `EventDate`, `Location`,`Tags`
+            FROM `Events` 
             WHERE `EventID` = %s
             """
             cursor.execute(sql, (Eventid,))
             result = cursor.fetchone()
             
             if result:
-                EventOBJ.Name = result['Name']
-                EventOBJ.Description = result['Description']
-                EventOBJ.Date = result['Date']
+                EventOBJ.EventName = result['EventName']
+                EventOBJ.EventDescription = result['EventDescription']
+                EventOBJ.EventDate = result['EventDate']
                 EventOBJ.Tags = parse_json_list(result['Tags'])
                 EventOBJ.Location = result['Location']
                 print(f"Event data retrieved successfully for UserID: {Eventid}")
