@@ -129,9 +129,9 @@ def myprofilepage():
 @app.route('/updateprofile', methods=['GET', 'POST'])
 def updateprofilepage():
     data = request.json
-    CurrentInstance.User.Name = data.get('Name')
-    CurrentInstance.User.InterestList = data.get('interest_list')
-    CurrentInstance.User.Location = data.get('location')
+    CurrentInstance.MyUser.Name = data.get('Name')
+    CurrentInstance.MyUser.InterestList = data.get('interest_list')
+    CurrentInstance.MyUser.Location = data.get('location')
     try:
         db_writer.update_user(CurrentInstance.User)
     except Exception as e:
