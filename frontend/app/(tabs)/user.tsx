@@ -14,6 +14,7 @@ export default function User() {
   const [username, setUsername] = useMMKVString('user.name')
   const [location, setLocation] = useState('loading...')
   const [interests, setInterests] = useState(Array<string>)
+  const [name, setName] = useState(username as string)
 
   const handleEdit = () => {
     setEdit(true)
@@ -41,6 +42,7 @@ export default function User() {
         return false;
       }
       const data = await response.json();
+      setName(data.Name as string)
       setLocation(data.Location as string)
       setInterests(data.InterestList as Array<string>)
       console.log('Data from Flask:', data);
@@ -50,7 +52,6 @@ export default function User() {
     }  
   }
 
-  const name = username as string;
   const isUser = true
   const eventname = "Taloy Swift Concert"
   const eventdate = "2024-07-24"
@@ -95,7 +96,7 @@ export default function User() {
       }
       {edit &&
         <UserEdit
-          Username={name}
+          Name={name}
           Location={location}
           Interest={interests}
           handleEdit={()=>{setEdit(false)}}

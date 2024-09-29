@@ -5,7 +5,7 @@ import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 
 export type UserEditProps = {
-  Username: string;
+  Name: string;
   Location: string;
   Interest: Array<string>;
   handleEdit: (...args: any[]) => void;
@@ -13,12 +13,12 @@ export type UserEditProps = {
 
 
 export default function UserEdit({
-  Username,
+  Name,
   Location,
   Interest,
   handleEdit
 }: UserEditProps) {
-  const [username, setUsername] = useState(Username)
+  const [name, setname] = useState(Name)
   const [location, setLocation] = useState(Location)
   const [interests, setInterests] = useState(Interest);
   const [interest, setInterest] = useState("")
@@ -54,10 +54,10 @@ export default function UserEdit({
       <Text style={styles.inputText}>Username</Text>
       <TextInput
         style={styles.input}
-        placeholder="Username"
+        placeholder="Name"
         placeholderTextColor="#aaa"
-        value={username}
-        onChangeText={setUsername}
+        value={name}
+        onChangeText={setname}
         autoCapitalize="none"
       />
       <Text style={styles.inputText}>Location</Text>
