@@ -1,12 +1,12 @@
-from backend.connection.classes import *
+from classes import *
 
 #exec(open('filename.py').read())
 
-GLOBALFriendOBJ = []
-GLOBALEventOBJ = []
+"""def init(instance):
 
-ProfileID = 123456  #Send to server from the app/phone/webpage
-MyProfileOBJ = Profile(ProfileID)
+
+    MyUser = instance.User
+    MUserID = MyUser.UserID
 
 for friendID in MyProfileOBJ.FriendIDArr:
     GLOBALFriendOBJ.append(Profile(friendID))
@@ -21,5 +21,6 @@ for friendOBJ in GLOBALFriendOBJ:
 for eventID in FriendsEventsArr.set:
     newEvent = Event(eventID, FriendsEventsArr.get_data(eventID))
     GLOBALEventOBJ.append(newEvent)
+    return"""
 
         
