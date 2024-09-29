@@ -65,6 +65,7 @@ def update_user(UserOBJ):
     image = UserOBJ.Image
     location = UserOBJ.Location
     userid = UserOBJ.UserID
+    name = UserOBJ.Name
     
     try:
         connection = get_connection()
@@ -79,11 +80,12 @@ def update_user(UserOBJ):
                 `PasswordHash` = %s,
                 `Location` = %s,
                 `Extended Interests` = %s,
-                `EventsList` = %s
+                `EventsList` = %s,
+                `Name` = %s
             WHERE `UserID` = %s;
             """
             print(userid, userid, username, image, interest_list, password_hash, location, extended_interest_list)
-            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list, event_list, userid))
+            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list, event_list, name, userid))
         connection.commit()
         print(f"User '{username}' added/updated in Users table.")
     except pymysql.MySQLError as e:
