@@ -18,7 +18,7 @@ export default function Chat() {
   const users = [{name: 'John Doe',id: 10, pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
     interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
   },
-  {name: 'Tony',id: 12, pic: 'https://img.k2r2.com/uploads/frombd/0/253/3082275325/3261503094.jpg!190pic',
+  {name: 'George',id: 12, pic: 'https://img.k2r2.com/uploads/frombd/0/253/3082275325/3261503094.jpg!190pic',
     interests: ['Guitar', 'Gaming', 'Jerking']
   },
   {name: 'Darius', id: 15, pic: 'https://patchwiki.biligame.com/images/sr/4/45/635ho4kx5ge6epx3bkn6pzp3mbsvezk.png',

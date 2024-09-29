@@ -24,10 +24,20 @@ export default function TabTwoScreen() {
   const [isProfile, setIsProfile] = useState(false)
   const [username, setUsername] = useState("")
 
-  const users = [{name: 'john_doe', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
+  const users = [{name: 'John', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJtydZePQWuOVtLT7i6w_b9UpG26ZVX6JsQ&s',
+    interests: ['Programming', 'Mathmatic']
   },
   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    interests: ['Guitar', 'Gaming']
+  },
+  {name: 'Jenny', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCrHqWRNVBgP3y8V5VGudA0f5UmnisaLBGpA&s',
+    interests: ['Music', 'Gaming', 'Moview']
+  }]
+
+  const users2 = [{name: 'john_doe', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVoa9cpYPXd8OR8J9Zz8vw4Kj421p9GTikrg&s',
+    interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
+  },
+  {name: 'Tony', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9mjn-XEoZoql762QQVg4agiWEFZcqs94tHg&s',
     interests: ['Guitar', 'Gaming', 'Jerking']
   },
   {name: 'Darius', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
@@ -36,7 +46,7 @@ export default function TabTwoScreen() {
 
   const getUserProfile = (nameSet:string) => {
     setUsername(nameSet)
-    setIsProfile(true)
+    // setIsProfile(true)
   }
   
   return (
@@ -72,7 +82,7 @@ export default function TabTwoScreen() {
           </View>
           <LineWithText text="all"></LineWithText>
           <View style={styles.userAllContainer}>
-            {users.map((user, index) => (
+            {users2.map((user, index) => (
               <View style={styles.userContainer}>
                 <View style={styles.photoContaienr}>
                   <Image

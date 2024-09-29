@@ -7,20 +7,20 @@ import CreateEvent from '../createEvent';
 // import { MMKV, useMMKVString} from 'react-native-mmkv'
 
 export default function HomeScreen() {
-  // const events = [{eventname: "Taloy Swift Concert", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
-  //   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
-  // ]},
-  // {eventname: "Football game", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
-  //   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
-  // ]},
-  // {eventname: "Micheal Jackson Concert", eventdate: "2024-07-24", profileInfo: [{name: 'Thomas', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
-  //   {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
-  // ]}
-  // ]
+  const events = [{eventname: "Taloy Swift Concert", eventdate: "2024-07-24", profileInfo: [{name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}, 
+    {name: 'Micheal', pic: 'https://wallpapers.com/images/hd/profile-picture-f67r1m9y562wdtin.jpg'}
+  ]},
+  {eventname: "Football game", eventdate: "2024-08-12", profileInfo: [{name: 'Mia', pic: 'https://play-lh.googleusercontent.com/jInS55DYPnTZq8GpylyLmK2L2cDmUoahVacfN_Js_TsOkBEoizKmAl5-p8iFeLiNjtE=w526-h296-rw'}, 
+    {name: 'Erica', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjgozuCfOm6KK6d5WM06498mrXzZB12TawhA&s'},
+    {name: 'Anna', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4q4WLuAzSHosjkVws4BwFSEEHbg3npY5rWA&s'}
+  ]},
+  {eventname: "Micheal Jackson Concert", eventdate: "2024-08-20", profileInfo: [{name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
+  ]}
+  ]
 
   const [create, setCreate] = useState(false)
   // const [username, setUsername] = useMMKVString('user.name')
-  const [events, setEvents] = useState([])
+  // const [events, setEvents] = useState([])
 
   // const getUserInfo = async () => {
   //   try {
@@ -60,6 +60,7 @@ export default function HomeScreen() {
       if (!response.ok) {
         return false;
       }
+      console.log(response)
       const data = await response.json();
       var singleEvent = {eventName: data.EventName, eventDate: data.EventDate, eventLocation: data.EventLocation}
       console.log('Data from Flask:', data);
