@@ -204,7 +204,8 @@ def fill_user_event(UserOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
-    newUser = User(find_userid('johnny test'))
+    newUser = User(find_userid('rebelxhawk'))
     newUser.fill_user()
     newUser.fill_user_friends()
-    print(newUser.UserFriendsList)
+    fill_user_event(newUser)
+    print(newUser.myEventIDArr)
