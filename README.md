@@ -7,7 +7,7 @@
 ##### Aditya Singh - adityasht@gmail.com - Backend
 ##### Feiyang Xie - fxie64@gatech.edu - Frontend
 
-- ### Branch is an interactive application designed to enhance human connections and foster habits that promote positive mental well-being.
+- ### Branch is an interactive application designed to enhance human connections and foster habits that promote positive mental well-being, providing a social tool for helping people branch out.
 
 An app that fosters real-life connections is valuable because it promotes deeper, more meaningful relationships, which are essential for mental and emotional well-being. Unlike digital interactions, face-to-face connections provide trust, empathy, and support, reducing stress and loneliness. Research shows that people with strong in-person networks are happier and healthier. By encouraging these real-life interactions, the app can help build stronger communities, enhance social cohesion, and support overall mental health, making it a powerful tool for positive social change by helping people branch out.
 
