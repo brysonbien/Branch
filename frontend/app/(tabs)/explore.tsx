@@ -1,102 +1,202 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
-
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { StyleSheet, Image, Platform, ScrollView, Text,View, TouchableOpacity, Pressable} from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import React, { useState } from 'react';
+import UserProfile from '@/components/UserProfile'
+
+interface LineWithTextProps {
+  text: string;
+}
+
+const LineWithText: React.FC<LineWithTextProps> = ({text}) => {
+  return (
+    <View style={styles.lineContainer}>
+      <View style={styles.line} />
+      <Text style={styles.lineText}>{text}</Text>
+      <View style={styles.line} />
+    </View>
+  );
+};
 
 export default function TabTwoScreen() {
+  const [interest, useInterest] = useState(false)
+  const [isProfile, setIsProfile] = useState(false)
+  const [username, setUsername] = useState("")
+
+  const users = [{name: 'john_doe', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    interests: ['Music', 'Gaming', 'Hiking', 'Thinking', 'Japanese']
+  },
+  {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    interests: ['Guitar', 'Gaming', 'Jerking']
+  },
+  {name: 'Darius', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+    interests: ['Music', 'Gaming', 'Squashing']
+  }]
+
+  const getUserProfile = (nameSet:string) => {
+    setUsername(nameSet)
+    setIsProfile(true)
+  }
+  
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText> library
-          to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <>
+      {!isProfile &&
+        <ScrollView contentContainerStyle={styles.container}>
+          <View style={styles.textContainer}>
+            <Text style={styles.mainText}>Explore</Text>
+          </View>
+          <TouchableOpacity onPress={() => {useInterest(!interest)}} style={styles.filter}>
+            <Text style={styles.filterText}>{interest ? "Without Filter" : "Filter Interests"}</Text>
+          </TouchableOpacity>
+          <LineWithText text="recommended"></LineWithText>
+          <View style={styles.userAllContainer}>
+            {users.map((user, index) => (
+              <Pressable onPress={() => getUserProfile(user.name)} style={styles.userContainer}>
+                <View style={styles.photoContaienr}>
+                  <Image
+                    source={{uri: user.pic}}
+                    style={styles.picture}
+                  ></Image>
+                  <Text style={styles.userText}>{user.name}</Text>
+                </View>
+                <View style={styles.pillContainer}>
+                  {user.interests.map((interest, index) => (
+                    <TouchableOpacity style={styles.pill}>
+                      <Text style={styles.pillText}>{interest}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </Pressable>
+            ))}
+          </View>
+          <LineWithText text="all"></LineWithText>
+          <View style={styles.userAllContainer}>
+            {users.map((user, index) => (
+              <View style={styles.userContainer}>
+                <View style={styles.photoContaienr}>
+                  <Image
+                    source={{uri: user.pic}}
+                    style={styles.picture}
+                  ></Image>
+                  <Text style={styles.userText}>{user.name}</Text>
+                </View>
+                <View style={styles.pillContainer}>
+                  {user.interests.map((interest, index) => (
+                    <TouchableOpacity style={styles.pill}>
+                      <Text style={styles.pillText}>{interest}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
+              </View>
+            ))}
+          </View>
+        </ScrollView>
+      }
+      {isProfile &&
+        <UserProfile
+          username = {username}
+          back={() => {setIsProfile(false)}}
+        ></UserProfile>
+      }
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  filter: {
+    marginTop: 10,
+    backgroundColor: '#008000', // Pill background color
+    borderRadius: 20,          // Make it pill-shaped
+    paddingVertical: 5,       // Vertical padding
+    paddingHorizontal: 5,     // Horizontal padding
+    margin: 5,                 // Space between pills
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "80%",
+    height: 30
   },
-  titleContainer: {
+  filterText: {
+    color: 'white',            // Text color
+    // fontWeight: 'bold',        // Bold text
+    fontSize: 15
+  },
+  photoContaienr: {
     flexDirection: 'row',
-    gap: 8,
+    justifyContent: "flex-start",
+    alignItems:'center'
+  },
+  pillContainer: {
+    paddingLeft: "5%",
+    flexDirection: 'row',
+    flexWrap: 'wrap', // Allows the items to wrap onto the next line
+    justifyContent: 'flex-start', // Align items to the start
+    width: "50%",
+    marginRight: 20
+  },
+  userText: {
+    marginLeft: 10,
+    fontSize: 20,
+  },
+  picture: {
+    width: 40,
+    height: 40,
+    borderRadius: 100, 
+    marginLeft: 10,
+  },
+  userContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 20,
+    height: "30%"
+  },
+  userAllContainer: {
+    marginLeft: 20,
+    paddingBottom: 40
+  },
+  textContainer: {
+    alignItems: 'center'
+  },
+  mainText: {
+    fontSize: 20,
+    alignItems: 'center',
+    fontWeight: 'bold'
+  },
+  container: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingTop: 20,
+    paddingBottom: "50%"
+  },
+  pill: {
+    backgroundColor: '#008000', // Pill background color
+    borderRadius: 20,          // Make it pill-shaped
+    paddingVertical: 5,       // Vertical padding
+    paddingHorizontal: 5,     // Horizontal padding
+    margin: 5,                 // Space between pills
+    alignItems: 'center'
+  },
+  pillText: {
+    color: 'white',            // Text color
+    fontWeight: 'bold',        // Bold text
+    fontSize: 10
+  },
+  lineContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#808080', // Color of the line
+  },
+  lineText: {
+    marginHorizontal: 10,
+    fontSize: 12, // Small text size
+    color: '#808080', // Text color
   },
 });
