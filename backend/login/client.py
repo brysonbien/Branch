@@ -47,6 +47,6 @@ if __name__ == "__main__":
     password = input("Enter your Instagram password: ")
 
     # Log in
-    testInit(username)
+    #testInit(username)
     tcreateEvent()
-    testMyProfile()
+    #testMyProfile()

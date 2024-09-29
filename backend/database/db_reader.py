@@ -92,7 +92,7 @@ def fill_user(UserOBJ):
                 UserOBJ.ExtendedInterestList = parse_json_list(result['Extended Interests'])
                 UserOBJ.Password = result['PasswordHash']
                 UserOBJ.Location = result['Location']
-                UserOBJ.myEventIDArr = parse_json_list(parse_json_list(result['EventsList']))
+                UserOBJ.myEventIDArr = (parse_json_list(result['EventsList']))
                 print(result['EventsList'])
                 print(f"User data retrieved successfully for UserID: {userid}")
             else:
@@ -210,10 +210,10 @@ def fill_event(EventOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
-    newUser = User(find_userid('rebelxhawk'))
+    newUser = User(83)
     newUser.fill_user()
     newUser.fill_user_friends()
-    numbers = [int(x) for x in newUser.myEventIDArr]
-    newEvent = Event(['coco'], numbers[0])
-    fill_event(newEvent)
-    print(newEvent.EventName, newEvent.EventDate, newEvent.EventDescription, newEvent.KAttendeeArr)
+    #numbers = [int(x) for x in newUser.myEventIDArr]
+    #newEvent = Event(['coco'], numbers[0])
+    #fill_event(newEvent)
+    #print(newEvent.EventName, newEvent.EventDate, newEvent.EventDescription, newEvent.KAttendeeArr)
