@@ -104,99 +104,99 @@ export default function TabTwoScreen() {
 }
 
 const styles = StyleSheet.create({
-    filter: {
-      marginTop: 10,
-      backgroundColor: '#008000', // Pill background color
-      borderRadius: 20,          // Make it pill-shaped
-      paddingVertical: 5,       // Vertical padding
-      paddingHorizontal: 5,     // Horizontal padding
-      margin: 5,                 // Space between pills
-      alignItems: 'center',
-      justifyContent: 'center',
-      width: "80%",
-      height: 30
-    },
-    filterText: {
-      color: 'white',            // Text color
-      // fontWeight: 'bold',        // Bold text
-      fontSize: 15
-    },
-    photoContaienr: {
-      flexDirection: 'row',
-      justifyContent: "flex-start",
-      alignItems:'center'
-    },
-    pillContainer: {
-      paddingLeft: "5%",
-      flexDirection: 'row',
-      flexWrap: 'wrap', // Allows the items to wrap onto the next line
-      justifyContent: 'flex-start', // Align items to the start
-      width: "50%",
-      marginRight: 20
-    },
-    userText: {
-      marginLeft: 10,
-      fontSize: 20,
-    },
-    picture: {
-      width: 40,
-      height: 40,
-      borderRadius: 100, 
-      marginLeft: 10,
-    },
-    userContainer: {
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "space-between",
-      marginTop: 20,
-      height: "30%"
-    },
-    userAllContainer: {
-      marginLeft: 20,
-      paddingBottom: 40
-    },
-    textContainer: {
-      alignItems: 'center'
-    },
-    mainText: {
-      fontSize: 20,
-      alignItems: 'center',
-      fontWeight: 'bold'
-    },
-    container: {
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      backgroundColor: 'white',
-      paddingTop: 20,
-      paddingBottom: "50%"
-    },
-    pill: {
-      backgroundColor: '#008000', // Pill background color
-      borderRadius: 20,          // Make it pill-shaped
-      paddingVertical: 5,       // Vertical padding
-      paddingHorizontal: 5,     // Horizontal padding
-      margin: 5,                 // Space between pills
-      alignItems: 'center'
-    },
-    pillText: {
-      color: 'white',            // Text color
-      fontWeight: 'bold',        // Bold text
-      fontSize: 10
-    },
-    lineContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      width: '100%',
-      marginTop: 20,
-    },
-    line: {
-      flex: 1,
-      height: 1,
-      backgroundColor: '#808080', // Color of the line
-    },
-    lineText: {
-      marginHorizontal: 10,
-      fontSize: 12, // Small text size
-      color: '#808080', // Text color
-    },
+  filter: {
+    marginTop: 10,
+    backgroundColor: '#008000', // Pill background color
+    borderRadius: 20,          // Make it pill-shaped
+    paddingVertical: 5,       // Vertical padding
+    paddingHorizontal: 5,     // Horizontal padding
+    margin: 5,                 // Space between pills
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: "80%",
+    height: 30
+  },
+  filterText: {
+    color: 'white',            // Text color
+    // fontWeight: 'bold',        // Bold text
+    fontSize: 15
+  },
+  photoContaienr: {
+    flexDirection: 'row',
+    justifyContent: "flex-start",
+    alignItems:'center'
+  },
+  pillContainer: {
+    paddingLeft: "5%",
+    flexDirection: 'row',
+    flexWrap: 'wrap', // Allows the items to wrap onto the next line
+    justifyContent: 'flex-start', // Align items to the start
+    width: "50%",
+    marginRight: 20
+  },
+  userText: {
+    marginLeft: 10,
+    fontSize: 20,
+  },
+  picture: {
+    width: 40,
+    height: 40,
+    borderRadius: 100, 
+    marginLeft: 10,
+  },
+  userContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginTop: 20,
+    height: "30%"
+  },
+  userAllContainer: {
+    marginLeft: 20,
+    paddingBottom: 40
+  },
+  textContainer: {
+    alignItems: 'center'
+  },
+  mainText: {
+    fontSize: 20,
+    alignItems: 'center',
+    fontWeight: 'bold'
+  },
+  container: {
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    paddingTop: 20,
+    paddingBottom: "50%"
+  },
+  pill: {
+    backgroundColor: '#008000', // Pill background color
+    borderRadius: 20,          // Make it pill-shaped
+    paddingVertical: 5,       // Vertical padding
+    paddingHorizontal: 5,     // Horizontal padding
+    margin: 5,                 // Space between pills
+    alignItems: 'center'
+  },
+  pillText: {
+    color: 'white',            // Text color
+    fontWeight: 'bold',        // Bold text
+    fontSize: 10
+  },
+  lineContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    marginTop: 20,
+  },
+  line: {
+    flex: 1,
+    height: 1,
+    backgroundColor: '#808080', // Color of the line
+  },
+  lineText: {
+    marginHorizontal: 10,
+    fontSize: 12, // Small text size
+    color: '#808080', // Text color
+  },
 });
