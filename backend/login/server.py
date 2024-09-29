@@ -15,7 +15,18 @@ import initializeApp
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 cl = Client()
-CurrentInstance = None
+class AppInstance:
+    def __init__(self):
+        self.MyUser = None
+        self.FriendUserList = []
+        self.EventList = []
+    
+    def reset(self):
+        self.MyUser = None
+        self.FriendUserList = []
+        self.EventList = []
+
+CurrentInstance = AppInstance()
 
 # Convert all non-serializable objects in user info to strings for Instagram API user/pass
 def serialize_user_info(user_info_dict):
@@ -86,7 +97,7 @@ def init():
     except Exception as e:
         return jsonify({'error': 'Username Invalid!'})
     
-    CurrentInstance = classes.AppInstance(userID)
+    CurrentInstance.MyUser = classes.User(userID)
     initializeApp.init(CurrentInstance)
 
     
@@ -97,6 +108,7 @@ def init():
 # Get My Profile Page
 @app.route('/myprofilepage', methods=['GET'])
 def myprofilepage():
+    global CurrentInstance 
     """data = request.json
     username = data.get('username')
     try:
@@ -114,7 +126,7 @@ def myprofilepage():
 }), 200
 
 # Update Profile
-@app.route('/updateprofile', methods=['POST'])
+@app.route('/updateprofile', methods=['GET', 'POST'])
 def updateprofilepage():
     data = request.json
     CurrentInstance.User.Name = data.get('Name')
