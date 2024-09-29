@@ -24,7 +24,7 @@ def init(instance):
             FriendsEventsArr.add(event, friendID)
 
     for eventID in FriendsEventsArr.set:
-        newEvent = Event(eventID, FriendsEventsArr.get_data(eventID))
+        newEvent = Event(FriendsEventsArr.get_data(eventID), eventID)
         newEvent.fill_event()
         instance.EventList.append(newEvent)
         return

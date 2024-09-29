@@ -56,6 +56,7 @@ def add_user(username, password_hash, mutuals):
 
 def update_user(UserOBJ):
     interest_list = json.dumps(UserOBJ.InterestList)
+    event_list = json.dumps(UserOBJ.myEventIDArr)
     extended_interest_list = json.dumps(interests_recommender.get_interests_recommender(UserOBJ.InterestList))
     print(extended_interest_list)
     password_hash = UserOBJ.Password
@@ -76,11 +77,12 @@ def update_user(UserOBJ):
                 `InterestList` = %s,
                 `PasswordHash` = %s,
                 `Location` = %s,
-                `Extended Interests` = %s
+                `Extended Interests` = %s,
+                `EventsList` = %s
             WHERE `UserID` = %s;
             """
             print(userid, userid, username, image, interest_list, password_hash, location, extended_interest_list)
-            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list, userid))
+            cursor.execute(sql, (username, image, interest_list, password_hash, location, extended_interest_list, event_list, userid))
         connection.commit()
         print(f"User '{username}' added/updated in Users table.")
     except pymysql.MySQLError as e:
@@ -90,36 +92,27 @@ def update_user(UserOBJ):
             connection.close()
 
 def add_event(EventOBJ):
-    EventID = EventOBJ.EventID
     EventName = EventOBJ.EventName
     Description = EventOBJ.EventDescription
     Date = EventOBJ.EventDate
     Location = EventOBJ.Location
-    Attendees = EventOBJ.AllAttendeeArr
-    Tags = EventOBJ.Tags
-    EventTags = interests_recommender.get_event_tags(EventName, Description)
+    Tags = json.dumps(interests_recommender.find_tags(EventName, Description))
 
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            UPDATE `Events` 
-            SET
-                `EventName` = %s,
-                `Image` = %s,
-                `EventDescription` = %s,
-                `PasswordHash` = %s,
-                `Location` = %s,
-                `Tags` = %s
-            WHERE `UserID` = %s;
+            INSERT INTO `Events` (`EventName`, `EventDate`, `EventDescription`, `Location`,`Tags`) 
+            Values(%s, %s, %s, %s, %s)
             """
 
-            cursor.execute(sql, (EventName, image, interest_list, password_hash, location, extended_interest_list, userid))
+            cursor.execute(sql, (EventName, Date, Description, Location, Tags))
+            EventOBJ.EventID = eventid = cursor.lastrowid
         connection.commit()
-        print(f"User '{username}' added/updated in Users table.")
+        print(f"Event '{EventName}' added to Events Table with id {eventid}")
     except pymysql.MySQLError as e:
-        print(f"Failed to update user: {e.args[1]} (Error Code: {e.args[0]})")
+        print(f"Failed to create event: {e.args[1]} (Error Code: {e.args[0]})")
     finally:
         if connection:
             connection.close()
@@ -127,14 +120,26 @@ def add_event(EventOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
-    add_user('johnny test', 'doge', json.dumps('john_doe'))
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
-    tempuser = User(find_userid('johnny test'))
+    tempuser = User(find_userid('rebelxhawk'))
     tempuser.fill_user()
-    tempuser.Name = 'jahrath'
+    tempuser.myEventIDArr.append(15)
+    update_user(tempuser)
+    """tempuser.Name = 'jahrath'
     tempuser.InterestList = ['refrevre', 'trreveng', 'cewfeg', 'skarevng']
     tempuser.Location = 'Mommyc'
 
+
+
+    newEvent = Event([])
+    newEvent.EventDate = '2024-09-29 10:45:00'
+    newEvent.EventDescription = 'Step right up and make a difference! Create solutions for social issues, environmental sustainability, healthcare, and mental health to build a better world for all. The text appears to be a call to action encouraging people to get involved in addressing various societal and global challenges to improve the world.'
+    newEvent.EventName = 'Carnival for a Cause'
+    newEvent.Location = 'Mommyc'
+
+
+    add_event(newEvent)
+    tempuser.myEventIDArr.append(newEvent.EventID)
     update_user(tempuser)
-    print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.Location, tempuser.Name)
-    #print(tempuser.myEventIDArr)
+    print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location, tempuser.Name)
+    #print(tempuser.myEventIDArr)"""

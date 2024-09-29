@@ -51,7 +51,7 @@ def find_tags(eventname, eventdesc):
     # Prepare the prompt for the model
     prompt = (
         "Given the event name and description: %s, suggest 3 tags that are each 1 word."
-        % ', '.join(interests)
+        % ', '.join(eventname + ':' + eventdesc)
     )
 
     # Generate text using the InferenceClient
