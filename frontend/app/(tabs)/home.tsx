@@ -27,7 +27,7 @@ export default function HomeScreen() {
       const userData = {
         username: username,
       }
-      const response = await fetch(base_url + '/eventspage', {
+      const response = await fetch(base_url + '/myeventspage', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

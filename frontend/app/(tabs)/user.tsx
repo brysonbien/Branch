@@ -22,7 +22,7 @@ export default function User() {
 
   useEffect(() => {
     getUserInfo()
-  }, [])
+  }, [edit])
 
   const getUserInfo = async () => {
     try {
