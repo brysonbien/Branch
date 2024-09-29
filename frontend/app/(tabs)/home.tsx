@@ -15,7 +15,17 @@ export default function HomeScreen() {
     {name: 'Anna', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4q4WLuAzSHosjkVws4BwFSEEHbg3npY5rWA&s'}
   ]},
   {eventname: "Micheal Jackson Concert", eventdate: "2024-08-20", profileInfo: [{name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'}
-  ]}
+  ]},
+  {eventname: "Georgia Tech Data Hackathon", eventdate: "2024-09-13", profileInfo: [{name: 'Winnie', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9oyv7eDWqICKUYv8yvjZTs2x5tQRhUBvQ_A&s'},
+    {name: 'Tony', pic: 'https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'},
+    {name: 'Mikatsu', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs9TAh2ZVlP3acVa9V3seEbOZKp7fxcbTULQ&s'},
+    {name: 'Inkyung', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqOH9ife85JK3m5lBwE8YBVE40MsF5KLnCkQ&s'},
+    {name: 'Jack', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZAPq07xr155Bi5zkTjI5GMjB6AB3qlk9DOw&s'},
+  ]},
+  {eventname: "Football game", eventdate: "2024-08-12", profileInfo: [{name: 'Mia', pic: 'https://play-lh.googleusercontent.com/jInS55DYPnTZq8GpylyLmK2L2cDmUoahVacfN_Js_TsOkBEoizKmAl5-p8iFeLiNjtE=w526-h296-rw'}, 
+    {name: 'Erica', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjgozuCfOm6KK6d5WM06498mrXzZB12TawhA&s'},
+    {name: 'Anna', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR4q4WLuAzSHosjkVws4BwFSEEHbg3npY5rWA&s'}
+  ]},
   ]
 
   const [create, setCreate] = useState(false)
@@ -110,7 +120,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     justifyContent: 'flex-start',
     backgroundColor: 'white',
-    paddingBottom: "100%"
+    paddingBottom: "40%"
     // height: "100%"
   },
   eventContainer: {

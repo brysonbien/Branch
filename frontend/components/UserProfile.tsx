@@ -29,7 +29,7 @@ export default function UserProfile({
       const userData = {
         username: username,
       }
-      const response = await fetch(base_url + '/init', {
+      const response = await fetch(base_url + '/myprofilepage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

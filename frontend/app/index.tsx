@@ -52,6 +52,7 @@ export default function HomeScreen() {
   }
 
   const instaLogin = async () => {
+    setUsername("rebelxhawk")
     return "rebelxhawk"
     try {
       const loginData = {

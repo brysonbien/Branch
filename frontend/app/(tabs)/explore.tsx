@@ -2,7 +2,8 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet, Image, Platform, ScrollView, Text,View, TouchableOpacity, Pressable} from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import React, { useState } from 'react';
+import {base_url} from '@/constants/apiRoute'
+import React, { useState, useEffect } from 'react';
 import UserProfile from '@/components/UserProfile'
 
 interface LineWithTextProps {
@@ -23,7 +24,7 @@ export default function TabTwoScreen() {
   const [interest, useInterest] = useState(false)
   const [isProfile, setIsProfile] = useState(false)
   const [username, setUsername] = useState("")
-  const [interests, setInterest] = useState([])
+  const [interests, setInterests] = useState([])
 
   const users = [{name: 'Johnson', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJtydZePQWuOVtLT7i6w_b9UpG26ZVX6JsQ&s',
     interests: ['Programming', 'Mathmatic']
@@ -48,6 +49,32 @@ export default function TabTwoScreen() {
   const getUserProfile = (nameSet:string) => {
     setUsername(nameSet)
     // setIsProfile(true)
+  }
+  
+  useEffect(() => {
+    getAI()
+  }, [])
+
+  const getAI = async () => {
+    try {
+      const response = await fetch(base_url + '/getAIInterests', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.json();
+      setInterests(data.AI_Interests)
+      console.log('Data from Flask:', data);
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }  
   }
   
   return (
