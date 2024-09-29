@@ -114,7 +114,6 @@ def init():
 # Get My Profile Page
 @app.route('/myprofilepage', methods=['GET'])
 def myprofilepage():
-    global CurrentInstance 
     """data = request.json
     username = data.get('username')
     try:
@@ -213,7 +212,8 @@ def createevent():
         db_writer.create_event(newEvent)
     except Exception as e:
         return jsonify({'error': 'Event Not Created!'})
-    currUser.EventsList.append(newEvent.EventID)
+    currUser.EventsList = json.dumps(newEvent.EventID)
+    print(newEvent.EventID, 'this is the event id')
     try:
         db_writer.update_user(currUser)
         return jsonify({'message': newEvent.EventID})

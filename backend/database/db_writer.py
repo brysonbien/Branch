@@ -122,6 +122,7 @@ def add_event(EventOBJ):
 if __name__ == "__main__":
     # Add a user (example)
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
+    db_reader.create_user('adityasht', 'passs', json.dumps('rebelxhawk'))
     tempuser = User(find_userid('rebelxhawk'))
     tempuser.fill_user()
     number_list = ['15', '0']
@@ -129,9 +130,9 @@ if __name__ == "__main__":
     tempuser.myEventIDArr = json.dumps(number_list)
     tempuser.Name = 'the hulk'
     update_user(tempuser)
-    """tempuser.Name = 'jahrath'
+    tempuser.Name = 'jahrath'
     tempuser.InterestList = ['refrevre', 'trreveng', 'cewfeg', 'skarevng']
-    tempuser.Location = 'Mommyc'
+    tempuser.Location = 'Mommyc'""""""
 
 
 
