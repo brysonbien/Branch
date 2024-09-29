@@ -4,6 +4,9 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
 import {base_url} from '@/constants/apiRoute'
+import { MMKV } from 'react-native-mmkv'
+const storage = new MMKV()
+
 
 export type UserEditProps = {
   Name: string;

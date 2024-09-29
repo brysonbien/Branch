@@ -23,6 +23,7 @@ export default function TabTwoScreen() {
   const [interest, useInterest] = useState(false)
   const [isProfile, setIsProfile] = useState(false)
   const [username, setUsername] = useState("")
+  const [interests, setInterest] = useState([])
 
   const users = [{name: 'Johnson', pic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQPJtydZePQWuOVtLT7i6w_b9UpG26ZVX6JsQ&s',
     interests: ['Programming', 'Mathmatic']
@@ -73,7 +74,7 @@ export default function TabTwoScreen() {
                 <View style={styles.pillContainer}>
                   {user.interests.map((interest, index) => (
                     <TouchableOpacity style={styles.pill}>
-                      <Text style={styles.pillText}>{interest}</Text>
+                      <Text style={styles.pillText}>{interests[Math.floor(Math.random() * 5)]}</Text>
                     </TouchableOpacity>
                   ))}
                 </View>
