@@ -18,7 +18,7 @@ Branch is a special app that's goal is to get people off the app by enabling use
 ## Artificial Intelligence
 Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles and events based on shared interests using machine learning models to make connections.
 - **Better Connections**: By matching users based on shared interests, the platform encourages more meaningful connections.
-- **Improved Discoverability**: Users can find events with a personalized interest-pairing algorithm, fostering stronger communities within the app.
+- **Easily Breanch Out**: Users can find events with a personalized interest-pairing algorithm, fostering stronger communities within the app.
   
 ## Features
 - **Event Planning**: Share upcoming events with those around you and branch out.
@@ -50,4 +50,4 @@ The frontend is developed using React and TypeScript, providing a dynamic and ty
 The Generative AI functionality leverages a Hugging Face large language model (LLM) to match users based on their interests. This AI-powered approach enhances user interactions and social connections allowing users to branch out based on interest-pairing recommendations.
 
 ## Technologies
-Python, SQL, TypeScript, React Native, AWS, Git
+Python, SQL, TypeScript, React Native, AWS, Git, Flask

@@ -25,6 +25,22 @@ def tcreateEvent():
     }
     response = requests.post(login_url, json=data)
 
+def tupdateProfile():
+    login_url = f"{base_url}/updateprofile"
+    data = {
+        'Name': 'reynaldo',
+        'interest_list': ['Stargazing', 'Icecream', 'Tennis', 'Hiking', 'Food'],
+        'location': 'belize'
+    }
+    response = requests.post(login_url, json=data)
+
+def tgetAI():
+    login_url = f"{base_url}/getAIInterests"
+    response = requests.get(login_url)
+    json_response = response.json()
+    print("JSON Response:")
+    print(json_response)
+
 
 # Function to log in to the Flask app
 def login(username, password):
@@ -47,6 +63,8 @@ if __name__ == "__main__":
     password = input("Enter your Instagram password: ")
 
     # Log in
-    #testInit(username)
+    testInit(username)
+    tupdateProfile()
+    tgetAI()
     tcreateEvent()
     #testMyProfile()
