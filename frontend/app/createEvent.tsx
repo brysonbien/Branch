@@ -17,7 +17,7 @@ export default function CreateEvent({
   const [name, setName] = useState("")
   const [location, setLocation] = useState("")
 
-
+  
 
   const handleSave = () => {
     console.log("Event Created")

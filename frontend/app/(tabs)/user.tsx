@@ -42,6 +42,30 @@ export default function User() {
         return false;
       }
       const data = await response.json();
+      console.log('Data from Flask:', data);
+      return await getProfileInfo()
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }  
+  }
+
+  const getProfileInfo = async () => {
+    try {
+      const userData = {
+        username: username,
+      }
+      const response = await fetch(base_url + '/profilepage', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+      const data = await response.json();
       setName(data.Name as string)
       setLocation(data.Location as string)
       setInterests(data.InterestList as Array<string>)
