@@ -7,13 +7,13 @@
 ##### Aditya Singh - adityasht@gmail.com - Backend
 ##### Feiyang Xie - fxie64@gatech.edu - Frontend
 
-### Branch is an interactive iOS application meant to improve human relationships and develop habits associated with positive mental health.
+### Branch is an interactive application meant to improve human relationships and develop habits associated with positive mental health.
 
-An app that fosters real-life connections is valuable because it promotes deeper, more meaningful relationships, which are essential for mental and emotional well-being. Unlike digital interactions, face-to-face connections provide trust, empathy, and support, reducing stress and loneliness. Research shows that people with strong in-person networks are happier and healthier. By encouraging these real-life interactions, the app can help build stronger communities, enhance social cohesion, and support overall mental health, making it a powerful tool for positive social change.
+An app that fosters real-life connections is valuable because it promotes deeper, more meaningful relationships, which are essential for mental and emotional well-being. Unlike digital interactions, face-to-face connections provide trust, empathy, and support, reducing stress and loneliness. Research shows that people with strong in-person networks are happier and healthier. By encouraging these real-life interactions, the app can help build stronger communities, enhance social cohesion, and support overall mental health, making it a powerful tool for positive social change by helping people branch out.
 
 The Harvard Study of Adult Development, one of the longest studies on human happiness, found that close **relationships**, more than money or fame, are what keep people happy throughout their lives. Encouraging people to connect face-to-face can foster a sense of community, reduce social isolation, and promote mental health, making Branch a powerful tool for positive social change.
 
-Branch enables users to make plans with real people, in real life, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
+Branch enables users to make plans with real people, in real life, with common interests, therefore fostering these close relationships that will ultimately keep them happy throughout their lives.
 
 ## Artificial Intelligence
 Branch employs Generative AI to enhance user experience and improve connections by intelligently ranking and suggesting profiles based on shared interests using machine learning models to make connections.
