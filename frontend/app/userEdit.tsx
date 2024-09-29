@@ -3,6 +3,7 @@ import { Image, Text, View, StyleSheet, Platform, TouchableOpacity, Button,TextI
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import React, { useState } from 'react';
+import {base_url} from '@/constants/apiRoute'
 
 export type UserEditProps = {
   Name: string;
@@ -23,6 +24,34 @@ export default function UserEdit({
   const [interests, setInterests] = useState(Interest);
   const [interest, setInterest] = useState("")
 
+  const updateProfile = async () => {
+    try {
+      const profileData = {
+        Name: name,
+        location: location,
+        interest_list: interests
+      }
+      const response = await fetch(base_url + '/updateprofile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': base_url
+        },
+        body: JSON.stringify(profileData),
+      });
+  
+      if (!response.ok) {
+        return false;
+      }
+  
+      const data = await response.json();
+      console.log('Data from Flask:', data);
+      return true;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+    }
+  }
+
   const addInterest = () => {
     if (interests.indexOf(interest) == -1) {
       setInterests(interests => [...interests, interest])
@@ -37,9 +66,14 @@ export default function UserEdit({
     });
   }
 
-  const handleSave = () => {
-    console.log("save")
-    handleEdit()
+  const handleSave = async () => {
+    if (await updateProfile()) {
+      console.log("save")
+      handleEdit()
+    } else {
+      console.error("failed to save profile")
+      handleEdit()
+    }
   }
 
   return (
