@@ -120,10 +120,10 @@ def add_event(EventOBJ):
 
 
 if __name__ == "__main__":
-    # Add a user (example)
+    """# Add a user (example)
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
     db_reader.create_user('adityasht', 'passs', json.dumps('rebelxhawk'))
-    tempuser = User(find_userid('rebelxhawk'))
+    tempuser = User(find_userid('adityasht'))
     tempuser.fill_user()
     number_list = ['15', '0']
     json_result = json.dumps(number_list)
@@ -132,25 +132,23 @@ if __name__ == "__main__":
     update_user(tempuser)
     tempuser.Name = 'jahrath'
     tempuser.InterestList = ['refrevre', 'trreveng', 'cewfeg', 'skarevng']
-    tempuser.Location = 'Mommyc'""""""
+    tempuser.Location = 'Mommyc'"""
 
 
 
     newEvent = Event([])
     newEvent.EventDate = '2024-09-29 10:45:00'
     newEvent.EventDescription = 'Step right up and make a difference! Create solutions for social issues, environmental sustainability, healthcare, and mental health to build a better world for all. The text appears to be a call to action encouraging people to get involved in addressing various societal and global challenges to improve the world.'
-    newEvent.EventName = 'Carnival for a Cause'
+    newEvent.EventName = 'Test test etst etst'
     newEvent.Location = 'Mommyc'
 
 
     add_event(newEvent)
+    """
+
     tempuser.myEventIDArr.append(newEvent.EventID)
     update_user(tempuser)
     print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location, tempuser.Name)
     #print(tempuser.myEventIDArr)"""
-    ppl = ['adityasht', 'elliotwillner', 'thomasxie2']
-    newUser = User(83)
-    fill_user(newUser)
-    newUser.Name = 'Aditya S'
-    newUser.myEventIDArr = ['1','2']
-    update_user(newUser)
+
+

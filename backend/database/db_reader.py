@@ -209,10 +209,13 @@ def fill_event(EventOBJ):
 
 
 if __name__ == "__main__":
+    event = Event([], 16)
+    fill_event(event)
+    print(event.EventDescription)
     # Add a user (example)
-    newUser = User(83)
-    newUser.fill_user()
-    newUser.fill_user_friends()
+    #newUser = User(83)
+    #newUser.fill_user()
+    #newUser.fill_user_friends()
     #numbers = [int(x) for x in newUser.myEventIDArr]
     #newEvent = Event(['coco'], numbers[0])
     #fill_event(newEvent)
