@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_cors import CORS
 from instagrapi import Client
 from instagrapi.exceptions import ChallengeRequired, LoginRequired
@@ -9,11 +9,13 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'database'))
 import db_writer
 import classes
 import db_reader
+import init
 
 # Initialize Flask app and Instagram client
 app = Flask(__name__)
 CORS(app)  # This will enable CORS for all routes
 cl = Client()
+CurrentInstance = None
 
 # Convert all non-serializable objects in user info to strings for Instagram API user/pass
 def serialize_user_info(user_info_dict):
@@ -82,18 +84,73 @@ def init():
     try:
         userID = db_reader.find_userid(username)
     except Exception as e:
-        print(f"Username Invalid!")
+        return jsonify({'error': 'Username Invalid!'})
     
-    currentInstance = classes.AppInstance(userID)
-    currentInstance.MyUser.fill_user()
+    CurrentInstance = classes.AppInstance(userID)
+    init.init(CurrentInstance)
+
+    
+    return jsonify({
+    'message': 'Initialization successful.',
+}), 200
+
+# Get My Profile Page
+@app.route('/profilepage', methods=['GET'])
+def profilepage():
+    """data = request.json
+    username = data.get('username')
+    try:
+        userID = db_reader.find_userid(username)
+    except Exception as e:
+        return jsonify({'error': 'Username Invalid!'})"""
 
     
     return jsonify({
     'message': 'User Found',
-    'Image': currentInstance.MyUser.Image,
-    'InterestList': currentInstance.MyUser.InterestList,
-    'Location': currentInstance.MyUser.Location
+    'Image': CurrentInstance.MyUser.Image,
+    'InterestList': CurrentInstance.MyUser.InterestList,
+    'Location': CurrentInstance.MyUser.Location
 }), 200
+
+# Update Profile
+@app.route('/updateprofile', methods=['POST'])
+def updateprofilepage():
+    data = request.json
+    CurrentInstance.User.Name = data.get('Name')
+    CurrentInstance.User.InterestList = data.get('interest_list')
+    CurrentInstance.User.Location = data.get('location')
+    try:
+        db_writer.update_user(CurrentInstance.User)
+    except Exception as e:
+        return jsonify({'error': 'Failed to Update'})
+
+    
+    return jsonify({
+    'message': 'Sucessful Update',
+}), 200
+
+# Get My Events Page
+@app.route('/eventspage', methods=['GET'])
+def eventpage():
+    """data = request.json
+    username = data.get('username')
+    try:
+        userID = db_reader.find_userid(username)
+    except Exception as e:
+        return jsonify({'error': 'Username Invalid!'})"""
+
+    jsonArr = []
+    for event in CurrentInstance.EventList:
+        jsonArr.append(jsonify({
+        'EventName' : event.EventName,
+        'Image': event.Image,
+        'EventDate': event.EventDate,
+        'Location': event.Location,
+        'Known Attendees' : event.KAttendeeArr
+        }))
+
+
+    return Response(json.dumps(jsonArr), mimetype='application/json'), 200
 
 # Debugging route for testing server status
 @app.route('/')

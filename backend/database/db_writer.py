@@ -123,13 +123,13 @@ def add_event(EventOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
+    add_user('johnny test', 'doge', json.dumps('john_doe'))
     #print(json.dumps(['reading', 'traveling', 'coding', 'fucking']))
     tempuser = User(find_userid('johnny test'))
-    tempuser.Username = 'johnny test'
-    tempuser.InterestList = ['reading', 'traveling', 'coding', 'skateboarding']
-    tempuser.Location = 'Monsters Inc'
-    tempuser.Password = 'fakepass123'
-    tempuser.mutuals = ['john doe', 'jane doe']
+    tempuser.fill_user()
+    tempuser.InterestList = ['refrevre', 'trreveng', 'cewfeg', 'skarevng']
+    tempuser.Location = 'Mommyc'
+
     update_user(tempuser)
     #print(tempuser.UserID, tempuser.Username, tempuser.InterestList, tempuser.Password, tempuser.Image, tempuser.ExtendedInterestList, tempuser.Location)
     #print(tempuser.myEventIDArr)

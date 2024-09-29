@@ -10,6 +10,7 @@ class AppInstance:
 class User:
     def __init__(self, UserID):
         self.UserID = UserID #User id
+        self.Name = None
         #API Call for the rest of the relavent information
         self.Username = None
         self.Password = None
@@ -35,6 +36,7 @@ class Event:
         self.EventDescription = None
         self.EventDate = None
         self.Location = None
+        self.EventTags = []
         self.AllAttendeeArr = []
 
     """def fill_event(self):

@@ -29,6 +29,7 @@ def get_connection():
     )
 
 def find_userid(username):
+    print(username, '<<<<<<<<<<<<<<')
     try:
         connection = get_connection()
         with connection.cursor() as cursor:
@@ -75,7 +76,7 @@ def fill_user(UserOBJ):
         with connection.cursor() as cursor:
             cursor.execute("USE `UserManagement`;")
             sql = """
-            SELECT `Username`, `Image`, `InterestList`,`PasswordHash`, `Location`, `mutuals`, `Extended Interests`
+            SELECT `Name`, `Username`, `Image`, `InterestList`,`PasswordHash`, `Location`, `mutuals`, `Extended Interests`
             FROM `Users` 
             WHERE `UserID` = %s
             """
@@ -83,6 +84,7 @@ def fill_user(UserOBJ):
             result = cursor.fetchone()
             
             if result:
+                UserOBJ.Name = result['Name']
                 UserOBJ.Username = result['Username']
                 UserOBJ.Image = result['Image']
                 UserOBJ.InterestList = parse_json_list(result['InterestList'])
@@ -92,34 +94,6 @@ def fill_user(UserOBJ):
                 print(f"User data retrieved successfully for UserID: {userid}")
             else:
                 print(f"No user found with UserID: {userid}")
-
-    except pymysql.MySQLError as e:
-        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
-    finally:
-        if connection:
-            connection.close()
-
-    try:
-        connection = get_connection()
-        with connection.cursor() as cursor:
-            cursor.execute("USE `UserManagement`;")
-            sql = """
-            SELECT `UserID`, `EventID`
-            FROM `EventAttendees` 
-            WHERE `UserID` = %s
-            """
-            cursor.execute(sql, (userid,))
-            results = cursor.fetchall()
-            
-            if results:
-                print(f"Found {len(results)} events for UserID: {userid}")
-                for result in results:
-                    UserOBJ.myEventIDArr.append(result)
-                    print(f"EventID: {result['EventID']}")
-                return results
-            else:
-                print(f"No events found for UserID: {userid}")
-                return []
 
     except pymysql.MySQLError as e:
         print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
@@ -142,15 +116,8 @@ def fill_user_friends(UserOBJ):
             WHERE `UserID` = %s
             """
             cursor.execute(sql, (userid,))
-            result = cursor.fetchone()
-            
-            if result and 'mutuals' in result:
-                mutuals = parse_json_list(result['mutuals'])
-                print(f"User mutuals retrieved successfully for UserID: {userid}")
-                return mutuals
-            else:
-                print(f"No user found with UserID: {userid}")
-                return None
+            result = cursor.fetchall()
+            #print('mut', result['mutuals'])
 
     except pymysql.MySQLError as e:
         print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
@@ -161,8 +128,9 @@ def fill_user_friends(UserOBJ):
     
     for n in result:
         try:
-            FriendIDs.append(find_userid(n))
-            print(n)
+            text = n['mutuals']
+            text = text[1:-1]
+            FriendIDs.append(find_userid(text))
         except pymysql.MySQLError as e:
             continue
     UserOBJ.UserFriendsList = FriendIDs
@@ -172,9 +140,7 @@ def fill_user_friends(UserOBJ):
 
 if __name__ == "__main__":
     # Add a user (example)
-    
     newUser = User(find_userid('johnny test'))
     newUser.fill_user()
-    print(newUser.InterestList, newUser.ExtendedInterestList)
-    newUser.fill_user_friends
+    newUser.fill_user_friends()
     print(newUser.UserFriendsList)
