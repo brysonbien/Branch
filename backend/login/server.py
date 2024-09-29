@@ -95,8 +95,8 @@ def init():
 }), 200
 
 # Get My Profile Page
-@app.route('/profilepage', methods=['GET'])
-def profilepage():
+@app.route('/myprofilepage', methods=['GET'])
+def myprofilepage():
     """data = request.json
     username = data.get('username')
     try:
@@ -107,6 +107,7 @@ def profilepage():
     
     return jsonify({
     'message': 'User Found',
+    'Name' : CurrentInstance.MyUser.Name,
     'Image': CurrentInstance.MyUser.Image,
     'InterestList': CurrentInstance.MyUser.InterestList,
     'Location': CurrentInstance.MyUser.Location
@@ -128,6 +129,29 @@ def updateprofilepage():
     return jsonify({
     'message': 'Sucessful Update',
 }), 200
+
+# Get Generic Profile
+@app.route('/profilepage', methods=['POST'])
+def profilepage():
+    data = request.json
+    username = data.get('username')
+    try:
+        userID = db_reader.find_userid(username)
+    except Exception as e:
+        return jsonify({'error': 'Username Invalid!'})
+
+    user = classes.User(userID)
+    user.fill_user()
+
+    
+    return jsonify({
+    'message': 'User Found',
+    'Name' : user.Name,
+    'Image': user.Image,
+    'InterestList': user.InterestList,
+    'Location': user.Location
+}), 200
+
 
 # Get My Events Page
 @app.route('/eventspage', methods=['GET'])

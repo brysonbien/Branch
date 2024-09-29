@@ -37,10 +37,9 @@ class Event:
         self.EventDate = None
         self.Location = None
         self.EventTags = []
-        self.AllAttendeeArr = []
 
-    """def fill_event(self):
-        db_reader.fill_user(self, self.EventID)"""
+    def fill_event(self):
+        db_reader.fill_user(self)
 
 
 
