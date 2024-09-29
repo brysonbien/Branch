@@ -17,6 +17,22 @@ def sort_events_by_relevance(events, interests):
     return [event for event, score in sorted_events]
 
 
+# Function to calculate relevance score based on string-based interests
+def calculate_relevance_score(friend, interests):
+    score = 0
+    for interest in interests:
+        if interest in friend.ExtendedInterestList:
+            score += 1
+        if interest in friend.InterestList:
+            score += 2
+    return score
+
+# Function to sort friends by their interest relevance
+def sort_events_by_relevance(events, interests):
+    friends_with_scores = [(friend, calculate_relevance_score(friend, interests)) for friend in friends]
+    sorted_friends = sorted(friends_with_scores, key=lambda x: x[1], reverse=True)
+    return [event for event, score in sorted_friends]
+
 # Example usage
 if __name__ == "__main__":
     # Create an instance of the application with a user ID
