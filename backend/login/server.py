@@ -199,14 +199,14 @@ def createevent():
     userid = db_reader.find_userid(username)
     currUser = classes.User(userid)
     currUser.fill_user()
-    newEvent = classes.Event([userid])
 
+    newEvent = classes.Event([userid])
     newEvent.EventName  = data.get('EventName')
     newEvent.EventDate  = data.get('EventDate')
     newEvent.EventDescription  = data.get('EventDescripton')
     newEvent.Location = data.get('Location')
     try:
-        db_writer.create_event(newEvent)
+        db_writer.add_event(newEvent)
     except Exception as e:
         return jsonify({'error': 'Event Not Created!'})
     currUser.EventsList = json.dumps(newEvent.EventID)
