@@ -11,16 +11,16 @@ def init(instance):
     MyUser.fill_user_friends()
     
 
-    for friendID in MyUser.FriendIDArr:
+    for friendID in MyUser.UserFriendsList:
         user = User(friendID)
-        user.fill_user
+        user.fill_user()
         instance.FriendUserList.append(user)
 
     FriendsEventsArr = CustomHashSet()
 
     for friendUser in instance.FriendUserList:
-        EventArr = db_reader.fill_user_reader(friendUser)  #API call from database returns EventIDs in an array
-        for event in EventArr:
+        db_reader.fill_user_event(friendUser)  #API call from database returns EventIDs in an array
+        for event in friendUser.myEventIDArr:
             FriendsEventsArr.add(event, friendID)
 
     for eventID in FriendsEventsArr.set:
