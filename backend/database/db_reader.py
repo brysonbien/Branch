@@ -102,6 +102,37 @@ def fill_user(UserOBJ):
         if connection:
             connection.close()
 
+def fill_event(EventOBJ):
+    Eventid = EventOBJ.UserID
+    try:
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            SELECT `Name`, `Description`, `Date`, `Location`,`Tags`
+            FROM `EventsList` 
+            WHERE `EventID` = %s
+            """
+            cursor.execute(sql, (Eventid,))
+            result = cursor.fetchone()
+            
+            if result:
+                EventOBJ.Name = result['Name']
+                EventOBJ.Description = result['Description']
+                EventOBJ.Date = result['Date']
+                EventOBJ.Tags = parse_json_list(result['Tags'])
+                EventOBJ.Location = result['Location']
+                print(f"Event data retrieved successfully for UserID: {Eventid}")
+            else:
+                print(f"No event found with EventID: {Eventid}")
+
+    except pymysql.MySQLError as e:
+        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+        return []
+    finally:
+        if connection:
+            connection.close()
+
 # Function to add a user to the Users table
 def fill_user_friends(UserOBJ):
     FriendIDs = []
@@ -134,6 +165,39 @@ def fill_user_friends(UserOBJ):
         except pymysql.MySQLError as e:
             continue
     UserOBJ.UserFriendsList = FriendIDs
+    return
+
+
+def fill_user_event(UserOBJ):
+    EventIDs = []
+    userid = UserOBJ.UserID
+    try:
+        connection = get_connection()
+        with connection.cursor(pymysql.cursors.DictCursor) as cursor:
+            cursor.execute("USE `UserManagement`;")
+            sql = """
+            SELECT `EventsList`
+            FROM `Users` 
+            WHERE `UserID` = %s
+            """
+            cursor.execute(sql, (userid,))
+            result = cursor.fetchall()
+            #print('mut', result['mutuals'])
+
+    except pymysql.MySQLError as e:
+        print(f"Database error: {e.args[1]} (Error Code: {e.args[0]})")
+        return None
+    finally:
+        if connection:
+            connection.close()
+    
+    for n in result:
+        try:
+            text = n['EventsList']
+            EventIDs.append(find_userid(text))
+        except pymysql.MySQLError as e:
+            continue
+    UserOBJ.myEventIDArr = EventIDs
     return
 
 

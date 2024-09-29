@@ -1,26 +1,32 @@
 from classes import *
+from db_reader import *
 
-#exec(open('filename.py').read())
-
-"""def init(instance):
+def init(instance):
 
 
-    MyUser = instance.User
-    MUserID = MyUser.UserID
+    MyUser = instance.MyUser
+    MyUserID = MyUser.UserID
 
-for friendID in MyProfileOBJ.FriendIDArr:
-    GLOBALFriendOBJ.append(Profile(friendID))
+    MyUser.fill_user()
+    MyUser.fill_user_friends()
+    
 
-FriendsEventsArr = CustomHashSet()
+    for friendID in MyUser.FriendIDArr:
+        user = User(friendID)
+        user.fill_user
+        instance.FriendUserList.append(user)
 
-for friendOBJ in GLOBALFriendOBJ:
-    EventArr = friendOBJ.myEventIDArr #API call from database returns EventIDs in an array
-    for event in EventArr:
-        FriendsEventsArr.add(event, friendID)
+    FriendsEventsArr = CustomHashSet()
 
-for eventID in FriendsEventsArr.set:
-    newEvent = Event(eventID, FriendsEventsArr.get_data(eventID))
-    GLOBALEventOBJ.append(newEvent)
-    return"""
+    for friendUser in instance.FriendUserList:
+        EventArr = db_reader.fill_user_reader(friendUser)  #API call from database returns EventIDs in an array
+        for event in EventArr:
+            FriendsEventsArr.add(event, friendID)
+
+    for eventID in FriendsEventsArr.set:
+        newEvent = Event(eventID, FriendsEventsArr.get_data(eventID))
+        newEvent.fill_event()
+        instance.EventList.append(newEvent)
+        return
 
         
