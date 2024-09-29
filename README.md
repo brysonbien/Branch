@@ -1,6 +1,6 @@
 # Branch
 
-<img src="images/branch.png" width="800">
+<img src="images/branch.png" width="700">
 
 ##### Bryson Bien - brysonbien@gmail.com - Backend
 ##### Elliot Willner - elliotwillner@gatech.edu - Database & AI
